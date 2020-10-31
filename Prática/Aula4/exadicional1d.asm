@@ -22,9 +22,9 @@ main:	la	$a0, frase		# $a0 = frase
 	la	$t0, str		# p = str
 while: 	lb	$t1, 0($t0)		# *p = str
 	beq	$t1, '\n', endw		# while( *p != '\n') {
-if:	blt	$t1, 0x61, endif	#	if(*p > 0x61 ||
-	bgt	$t1, 0x7a, endif	#	   *p < 0x7a )
-	addi	$t1, $t1, -0x20		#		*p = *p - 0x20
+if:	blt	$t1, 0x41, endif	#	if(*p > 0x61 ||
+	bgt	$t1, 0x5a, endif	#	   *p < 0x7a )
+	addi	$t1, $t1, 0x20		#		*p = *p - 0x20
 	sb	$t1, 0($t0)		# 		Renova o registo com os novos caracteres
 endif:	addi	$t0, $t0, 1		#	p++;
 	j	while			# }
