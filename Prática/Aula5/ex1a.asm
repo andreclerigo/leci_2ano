@@ -25,15 +25,15 @@ main:	li	$t0, 0				#	int i = 0;
 for:	bge	$t0, SIZE, endfor		#	for(i=0, i< SIZE; i++)
 	la	$a0, str
 	li	$v0, print_str
-	syscall					# 	print_string(str);
+	syscall					# 		print_string(str);
 	
 	li	$v0, read_int			#
-	syscall					#	tmp = read_int() -> $v0
+	syscall					#		tmp = read_int() -> $v0
 
-	la	$t1, lista			#	int *t1 = &lista[0]
-	sll	$t2, $t0, 2			#	t2 = i*4;
-	addu	$t2, $t1, $t2			#	t2 = lista + 4*i = &lista[i]
-	sw	$v0, 0($t2)			#	lista[i] = tmp
+	la	$t1, lista			#		int *t1 = &lista[0]
+	sll	$t2, $t0, 2			#		t2 = i*4;
+	addu	$t2, $t1, $t2			#		t2 = lista + 4*i = &lista[i]
+	sw	$v0, 0($t2)			#		lista[i] = tmp
 			
 	addi	$t0, $t0, 1			# i++;
 	j	for				# 
