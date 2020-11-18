@@ -23,7 +23,7 @@ while:	bgtu	$t0, $t1, endw		# while (p <= pultimo){
 	lw	$t2, 0($t0)		#	$t2 = *p
 	add	$t3, $t3, $t2		#	soma = soma + (*p);
 	addiu	$t0, $t0, 4		#	p++:
-	j	while				# }
+	j	while			# }
 endw:	move	$a0, $t3		# $a0 = soma
 	li	$v0, print_int10	# $v0 = 1
 	syscall				# print_int10(soma)				
