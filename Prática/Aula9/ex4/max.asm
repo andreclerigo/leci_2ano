@@ -2,8 +2,8 @@
 	.globl max
 
 max:				# double max(double *p, unsigned int n) {
-	la	$t0, $a0		#	$t0 = &(p)
-	la	$t1, $a1		#	$t1 = n
+	move	$t0, $a0		#	$t0 = &(p)
+	move	$t1, $a1		#	$t1 = n
 	addi	$t1, $t1, -1	#	n = n -1;
 	sll	$t1, $t1, 3	#	n = (n-1)*8;
 	addu	$t2, $t0, $t1	#	u = &(p[n-1]);
