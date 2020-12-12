@@ -37,8 +37,8 @@ endfor:					#
 	la	$a0, str2		#	$a0 = str2;
 	li	$v0, print_string	#	$v0 = 4;
 	syscall				#	print_string(str2);
-	mov.d	$f12, $f0		#
-	li	$v0, print_double	#
+	mov.d	$f12, $f0		#	$f12 = return(max);
+	li	$v0, print_double	#	$v0 = 3;
 	syscall				#	print_double(return(max));
 					#
 	lw	$ra, 0($sp)		#	repoem o valor de $ra
