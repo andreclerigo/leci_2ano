@@ -16,7 +16,7 @@ main:					# int main(void) {
 	la	$a0, str1		#	$a0 = str1
 	li	$v0, print_string	#	$v0 = 4
 	syscall				#	print_string(str1)
-	li	$v0, read_double	#	$v0 = 7;
+	li	$v0, read_double		#	$v0 = 7;
 	syscall				#	read_double();
 	mov.d	$f12, $f0		#	x = read_double();
 					#
@@ -25,8 +25,8 @@ main:					# int main(void) {
 	syscall				#	print_string(str2)
 	li	$v0, read_int		#	$v0 = 5;
 	syscall				#	read_int();
+	move	$a0, $v0			#	y = read_int();
 	
-	move	$a0, $v0		#	y = read_int();
 	jal	xtoy			#	xtoy(x, y);
 	mov.d 	$f12, $f0		#	result = return(xtoy(x, y));
 	

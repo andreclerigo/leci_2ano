@@ -43,5 +43,4 @@ endif2:					#	}
 	srl	$t1, $t1, 1		#	nval/2
 	addu	$t5, $t0, $t1		#	$t5 = &(array[nval/2]);
 	l.d	$f0, 0($t5)		#	return array[nval/2];
-	
 	jr	$ra			# } fim do programa

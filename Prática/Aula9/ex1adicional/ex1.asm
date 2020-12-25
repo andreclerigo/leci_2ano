@@ -1,9 +1,9 @@
 	.data
-	.eqv SIZE, 10
+	.eqv SIZE, 11
 	.eqv print_string, 4
 	.eqv print_double, 3
 	.eqv read_double, 7
-arr:	.space	80
+arr:	.space	88
 str1:	.asciiz "\nIntroduza um número: "
 str2:	.asciiz "\nValor mediano: "
 str3:	.asciiz "\nArray ordenado: "
