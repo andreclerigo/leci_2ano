@@ -59,7 +59,7 @@ for2:	bge	$s0, SIZE, endfor2	#	for ( i=0; i<SIZE; i++) {
 	syscall				#		print_string(str3)
 	addi	$s0, $s0, 1		#		i++
 	j	for2			#	}
-endfor2:					#	
+endfor2:				#	
 					#	Mostrar o valor maximo
 	la 	$a0, str5		#	$a0 = str5
 	li	$v0, print_string	#	$v0 = 4
