@@ -1,5 +1,5 @@
 strcpy:					# char *strcpy(char *dst char *src) {
-	li	$t0, -1			#	int i = 0;
+	li	$t0, -1			#	int i = -1;
 	move	$t2, $a0		#
 do:					#	do {
 	addi	$t0, $t0, 1		#		i++;

@@ -13,6 +13,7 @@ x0:	.double 0.0
 # $f12 - array[i] - media
 # $f0 - res
 	
+#ESTE EXERCICIO NAO ESTA BEM FEITO
 var:					# double var(double *array, int nval) {
 	addiu	$sp, $sp, -4		# 	poem espaco na pilha
 	sw	$ra, 0($sp)		#	guarda o $ra
@@ -27,8 +28,8 @@ var:					# double var(double *array, int nval) {
 for:	bge	$t0, $a1, endfor	#	for(i = 0, soma = 0.0; i < nval; i++) {
 	sll	$t2, $t0, 3		#		i = i * 8;
 	addu	$t3, $t1, $t2		#		$t3 = &(array[i])
-	l.d	$f12, 0($t3)		#		$f6 = array[i]
-	sub.d	$f12, $f12, $f4		#		$f6 = array[i] - media;
+	l.d	$f12, 0($t3)		#		$f12 = array[i]
+	sub.d	$f12, $f12, $f4		#		$f12 = array[i] - media;
 	li	$a0, 2			#		$a0 = 2
 	jal	xtoy			#		xtoy(array[i]-media, 2);
 	add.d	$f2, $f2, $f0		#		soma += return(xtoy(array[i]-media, 2))
