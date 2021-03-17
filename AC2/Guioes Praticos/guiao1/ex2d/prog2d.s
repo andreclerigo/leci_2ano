@@ -1,4 +1,4 @@
-        .equ readInt10, 4
+        .equ readInt, 4
         .equ printInt10, 7
         .equ printStr, 8
         .equ printInt, 6
@@ -16,8 +16,9 @@ while:  bne     $0, $0, endw                 #     while(true) {
         la      $a0, str1                    #         
         li      $v0, printStr                #
         syscall                              #         printStr("\nIntroduza um numero (sinal e modulo): ");
-        li      $v0, readInt10               #         
-        syscall                              #         value = readInt10();
+        li      $a0, 10                      #         $a0 = 10;
+        li      $v0, readInt                 #         
+        syscall                              #         value = readInt(10);
         move    $t1, $v0                     #         value = $v0;
 
         la      $a0, str2                    #         
