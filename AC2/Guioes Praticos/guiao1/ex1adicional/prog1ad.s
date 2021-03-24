@@ -29,7 +29,7 @@ do:                                     #       do {
         move    $a0, $s1                #
         li      $v0, printInt           #           $v0 = 6
         syscall                         #           printInt(cnt, base);  // 0x00080002: binary w/ 8 bits
-        li      $a1, 5                  #       
+        li      $a0, 5                  #       
         jal     wait                    #           wait(5);
 
         li      $v0, inKey              #
