@@ -10,7 +10,7 @@ main:                                   # int main(void) {
         li      $t0, 0                  #       counter = 0;
 while:  li      $v0, READ_CORE_TIMER    #       while(1) {
         syscall                         #               
-        blt     $v0, 2000000, while     #               while(READ_CORE_TIMER < 200000);
+        blt     $v0, 2000000, while     #               while(READ_CORE_TIMER < 2000000);
         li      $v0, RESET_CORE_TIMER   #               $v0 = 12;
         syscall                         #               resetCoreTimer();
 
