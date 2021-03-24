@@ -17,17 +17,16 @@ do:                                     #       do {
         li      $a0, '\r'               #           $a0 = '\r'
         li      $v0, putChar            #
         syscall                         #           putChar('\r');  // Carriage return character 
-        li      $t1, 3                  #           $t1 = 3;
-        li      $a1, 0x0003000A
-        move    $a0, $s0                #       
+        li      $a1, 0x0003000A         #       
+        move    $a0, $s1                #       
         li      $v0, printInt           #           $v0 = 6
         syscall                         #           printInt(cnt, base);  // 0x0003000A: decimal w/ 3 digits 
 
         li      $a0, '\t'               #           $a0 = '\t'
         li      $v0, putChar            #
         syscall                         #           putChar('\t');  // Tab character 
-        li      $a1, 0x00080002
-        move    $a0, $t1                #
+        li      $a1, 0x00080002         #            
+        move    $a0, $s1                #
         li      $v0, printInt           #           $v0 = 6
         syscall                         #           printInt(cnt, base);  // 0x00080002: binary w/ 8 bits
         li      $a1, 5                  #       
@@ -35,17 +34,17 @@ do:                                     #       do {
 
         li      $v0, inKey              #
         syscall                         #           inKey();
-        move    $t1, $v0                #           $t1 = char c = inKey();
+        move    $s0, $v0                #           $s0 = char c = inKey();
                                      
-if:     beq     $t1, '+', endif         #           if(c == '+') {
+if:     bne     $s0, '+', endif         #           if(c == '+') {
         li      $s0, 0                  #               s = 0;
 endif:                                  #           }
 
-if2:    beq     $t1, '-', endif2        #           if(c == '-') {
+if2:    bne     $s0, '-', endif2        #           if(c == '-') {
         li      $s0, 1                  #               s = 1;
 endif2:                                 #           }
 
-if3:    beq     $s0, 0, else            #           if(s == 0) {
+if3:    bne     $s0, 0, else            #           if(s == 0) {
         addi    $s1, $s1, 1             #               cnt = cnt + 1;
         andi    $s1, $s1, 0xFF          #               cnt = (cnt + 1) & 0xFF;
         j       endif3                  #
@@ -53,7 +52,7 @@ else:                                   #           else {
         addi    $s1, $s1, -1            #               cnt = cnt - 1;
         andi    $s1, $s1, 0xFF          #               cnt = (cnt + 1) & 0xFF;
 endif3:                                 #           }
-while:  bne     $s1, 'q', do            #       } while(c != 'q');
+while:  bne     $s0, 'q', do            #       } while(c != 'q');
         lw      $ra, 0($sp)             #       repor $ra
         lw      $ra, 4($sp)             #       repor $s0
         lw      $ra, 8($sp)             #       repor $s1
@@ -69,5 +68,4 @@ for:    bge     $t2, $t1, endfor        #       for(i=0; i < 515000 * ts; i++) {
         addi    $t2, $t2, 1             #               i++;
         j       for                     #       }
 endfor:                                 #
-        li      $v0, 0                  #       return 0;
         jr      $ra                     # }
