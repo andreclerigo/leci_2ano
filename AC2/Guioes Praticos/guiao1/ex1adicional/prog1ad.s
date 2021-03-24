@@ -34,13 +34,13 @@ do:                                     #       do {
 
         li      $v0, inKey              #
         syscall                         #           inKey();
-        move    $s0, $v0                #           $s0 = char c = inKey();
+        move    $t0, $v0                #           $t0 = char c = inKey();
                                      
-if:     bne     $s0, '+', endif         #           if(c == '+') {
+if:     bne     $t0, '+', endif         #           if(c == '+') {
         li      $s0, 0                  #               s = 0;
 endif:                                  #           }
 
-if2:    bne     $s0, '-', endif2        #           if(c == '-') {
+if2:    bne     $t0, '-', endif2        #           if(c == '-') {
         li      $s0, 1                  #               s = 1;
 endif2:                                 #           }
 
@@ -54,8 +54,8 @@ else:                                   #           else {
 endif3:                                 #           }
 while:  bne     $s0, 'q', do            #       } while(c != 'q');
         lw      $ra, 0($sp)             #       repor $ra
-        lw      $ra, 4($sp)             #       repor $s0
-        lw      $ra, 8($sp)             #       repor $s1
+        lw      $s0, 4($sp)             #       repor $s0
+        lw      $s1, 8($sp)             #       repor $s1
         li      $v0, 0                  #       return 0;
         jr      $ra                     # }
 
