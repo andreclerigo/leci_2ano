@@ -34,9 +34,9 @@ while:                                  #       while(1) {
 
 delay:                                  # void delay(int ms) {
         move    $t0, $a0                #       $t0 = ms;
-for:                                    #       for(; ms > 0; ms--) {
         li      $v0, RESET_CORE_TIMER   #               
         syscall                         #               resetCoreTimer();
+for:                                    #       for(; ms > 0; ms--) {
         li      $v0, READ_CORE_TIMER    #
         syscall                         #               readCoreTimer();
         blt     $v0, 20000, for         #               while(readCoreTimer() < K);
