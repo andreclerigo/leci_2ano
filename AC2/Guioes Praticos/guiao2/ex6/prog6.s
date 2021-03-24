@@ -22,7 +22,7 @@ main:                                   # int main(void) {
         li      $s4, 1                  #       del = true;
 
 while:                                  #       while(1) {
-        li      $v0, inKey              #               $v0 = 1
+input:  li      $v0, inKey              #               $v0 = 1
         syscall                         #               c = inkey();
 
 if3:    bne     $v0, 'A', endif3        #               if (c == 'A') {
@@ -35,15 +35,15 @@ endif4:                                 #               }
 if5:    bne     $v0, 'S', endif5        #               if (c == 'S') {
         li      $s4, 0                  #                   del = false;
 endif5:                                 #               }
-if6:    bne     $v0, 'S', endif6        #               if (c == 'R') {
+if6:    bne     $v0, 'R', endif6        #               if (c == 'R') {
         li      $s4, 1                  #                   del = true;
 endif6:                                 #               }
                                         #
-if7:    beq     $s4, 0, endif7          #               if (del == true) {
+if7:    beq     $s4, 1, endif7          #               if (del == true) {
+        j       input                   #                   inkey();
+endif7:                                 #               }
         move    $a0, $s3                #                   $a0 = t;
         jal     delay                   #                   delay(t);
-endif7:                                 #               }
-                                        #
         li      $a0, '\r'               #               $a0 = '\r'
         li      $v0, putChar            #               $v0 = 3;
         syscall                         #               putChar('\r');
