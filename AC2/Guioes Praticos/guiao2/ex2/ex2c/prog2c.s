@@ -3,7 +3,6 @@
         .equ putChar, 3
         .equ printInt, 6
         .data
-str1:   .asciiz "Hello World\n"
         .text
         .globl main
 

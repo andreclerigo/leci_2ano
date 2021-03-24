@@ -6,8 +6,7 @@ section                    address  length [bytes]      (dec)  Description
 -------                 ----------  -------------------------  -----------
 .text                   0x9d001400          0x1c8         456  Application's executable code 
 .rodata                 0x9d0015c8           0x18          24  Read-only constant data 
-.data                   0x9d0015e0            0xd          13  Data-initialization template 
-      Total kseg0_program_mem used  :       0x1ed         493  0.1% of 0x7ec00
+      Total kseg0_program_mem used  :       0x1e0         480  0.1% of 0x7ec00
 
 kseg0 Boot-Memory Usage
 section                    address  length [bytes]      (dec)  Description
@@ -26,19 +25,17 @@ section                    address  length [bytes]      (dec)  Description
 -------                 ----------  -------------------------  -----------
          Total kseg1_boot_mem used  :           0           0  <1% of 0x490
         --------------------------------------------------------------------------
-         Total Program Memory used  :       0x4b1        1201  0.2% of 0x80480
+         Total Program Memory used  :       0x4a4        1188  0.2% of 0x80480
         --------------------------------------------------------------------------
 
 
 kseg1 Data-Memory Usage
 section                    address  length [bytes]      (dec)  Description
 -------                 ----------  -------------------------  -----------
-.data                   0xa0000000            0xd          13  Initialized data 
-.bss                    0xa000000d            0x3           3  Uninitialized data 
-.stack                  0xa0000010         0x2000        8192  Minimum space reserved for stack 
-         Total kseg1_data_mem used  :      0x2010        8208  6.3% of 0x20000
+.stack                  0xa0000000         0x2000        8192  Minimum space reserved for stack 
+         Total kseg1_data_mem used  :      0x2000        8192  6.2% of 0x20000
         --------------------------------------------------------------------------
-            Total Data Memory used  :      0x2010        8208  6.3% of 0x20000
+            Total Data Memory used  :      0x2000        8192  6.2% of 0x20000
         --------------------------------------------------------------------------
 
 Memory Configuration
@@ -419,75 +416,73 @@ LOAD /opt/pic32mx/lib/startup.o
 .dbg_data       0x00000000a0000000        0x0
                 0x00000000a0000000                . = (. + DEFINED (_DEBUGGER)?0x200:0x0)
 
-.data           0x00000000a0000000        0xd load address 0x000000009d0015e0
+.data           0x00000000a0000000        0x0 load address 0x000000009d0015e0
                 0x00000000a0000000                _data_begin = .
  *(.data .data.* .gnu.linkonce.d.*)
- .data          0x00000000a0000000        0xd prog4.o
  *(.gnu.linkonce.d.*personality*)
  *(.data1)
                 0x000000009d0015e0                _data_image_begin = LOADADDR (.data)
 
 .eh_frame
  *(.eh_frame)
-                0x00000000a0008000                _gp = (ALIGN (0x10) + 0x7ff0)
+                0x00000000a0007ff0                _gp = (ALIGN (0x10) + 0x7ff0)
 
 .got
  *(.got.plt)
  *(.got)
 
-.sdata          0x00000000a000000d        0x0 load address 0x000000009d0015ed
-                0x00000000a000000d                _sdata_begin = .
+.sdata          0x00000000a0000000        0x0 load address 0x000000009d0015e0
+                0x00000000a0000000                _sdata_begin = .
  *(.sdata .sdata.* .gnu.linkonce.s.*)
-                0x00000000a000000d                _sdata_end = .
+                0x00000000a0000000                _sdata_end = .
 
 .lit8
  *(.lit8)
 
 .lit4
  *(.lit4)
-                0x00000000a0000010                . = ALIGN (0x4)
-                0x00000000a0000010                _data_end = .
-                0x00000000a0000010                _bss_begin = .
+                0x00000000a0000000                . = ALIGN (0x4)
+                0x00000000a0000000                _data_end = .
+                0x00000000a0000000                _bss_begin = .
 
-.sbss           0x00000000a000000d        0x0
-                0x00000000a000000d                _sbss_begin = .
+.sbss           0x00000000a0000000        0x0
+                0x00000000a0000000                _sbss_begin = .
  *(.dynsbss)
  *(.sbss .sbss.* .gnu.linkonce.sb.*)
  *(.scommon)
-                0x00000000a000000d                _sbss_end = .
+                0x00000000a0000000                _sbss_end = .
 
-.bss            0x00000000a000000d        0x3
+.bss            0x00000000a0000000        0x0
  *(.dynbss)
  *(.bss .bss.* .gnu.linkonce.b.*)
  *(COMMON)
-                0x00000000a0000010                . = ALIGN (0x4)
- *fill*         0x00000000a000000d        0x3 00
-                0x00000000a0000010                . = ALIGN (0x4)
-                0x00000000a0000010                _end = .
-                0x00000000a0000010                _bss_end = .
+                0x00000000a0000000                . = ALIGN (0x4)
+                0x00000000a0000000                . = ALIGN (0x4)
+                0x00000000a0000000                _end = .
+                0x00000000a0000000                _bss_end = .
 
-.persist        0x00000000a0000010        0x0
+.persist        0x00000000a0000000        0x0
  *(.persist)
-                0x00000000a0000010                . = ALIGN (0x4)
+                0x00000000a0000000                . = ALIGN (0x4)
 
-.heap           0x00000000a0000010        0x0
-                0x00000000a0000010                _heap = .
-                0x00000000a0000010                . = (. + _min_heap_size)
+.heap           0x00000000a0000000        0x0
+                0x00000000a0000000                _heap = .
+                0x00000000a0000000                . = (. + _min_heap_size)
 
-.stack          0x00000000a0000010     0x2000
-                0x00000000a0000010                _splim = .
-                0x00000000a0000010                _SPLIM = .
-                0x00000000a0002010                . = (. + _min_stack_size)
- *fill*         0x00000000a0000010     0x2000 00
+.stack          0x00000000a0000000     0x2000
+                0x00000000a0000000                _splim = .
+                0x00000000a0000000                _SPLIM = .
+                0x00000000a0002000                . = (. + _min_stack_size)
+ *fill*         0x00000000a0000000     0x2000 00
 
-.ramfunc        0x00000000a0002800        0x0 load address 0x000000009d0015ed
-                0x00000000a0002800                _ramfunc_begin = .
+.ramfunc        0x00000000a0002000        0x0 load address 0x000000009d0015e0
+                0x00000000a0002000                _ramfunc_begin = .
  *(.ramfunc .ramfunc.*)
-                0x00000000a0002800                . = ALIGN (0x4)
-                0x00000000a0002800                _ramfunc_end = .
-                0x000000009d0015ed                _ramfunc_image_begin = LOADADDR (.ramfunc)
+                0x00000000a0002000                . = ALIGN (0x4)
+                0x00000000a0002000                _ramfunc_end = .
+                0x000000009d0015e0                _ramfunc_image_begin = LOADADDR (.ramfunc)
                 0x0000000000000000                _ramfunc_length = SIZEOF (.ramfunc)
-                0x0000000000002800                _bmxdkpba_address = (_ramfunc_begin - 0xa0000000)
+                0x0000000000002000                _bmxdkpba_address = (_ramfunc_begin - 0xa0000000)
                 0x0000000000020000                _bmxdudba_address = 0x20000
                 0x0000000000020000                _bmxdupba_address = 0x20000
                 0x00000000a0020000                _stack = (_ramfunc_length > 0x0)?(_ramfunc_begin - 0x4):0xa0020000
