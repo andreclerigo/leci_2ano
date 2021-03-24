@@ -59,18 +59,20 @@ else:                                   #           else {
         andi    $s1, $s1, 0xFF          #               cnt = (cnt + 1) & 0xFF;
 endif3:                                 #           }
 while:  bne     $s1, 'q', do            #       } while(c != 'q');
-        li      $v0, 0                  #       return 0;
         lw      $ra, 0($sp)             #       repor $ra
         lw      $ra, 4($sp)             #       repor $s0
         lw      $ra, 8($sp)             #       repor $s1
+        li      $v0, 0                  #       return 0;
         jr      $ra                     # }
 
 
 wait:                                   # void wait(int ts) {
-        li      $t1, 515000             #     const = 515000
-        mul     $t1, $t1, $a0           #     const = 515000 * ts
-        li      $t2, 0                  #     i = 0;
-for:    bge     
-endfor:
-        li      $v0, 0                  #     return 0;
+        li      $t1, 515000             #       const = 515000
+        mul     $t1, $t1, $a0           #       const = 515000 * ts
+        li      $t2, 0                  #       i = 0;
+for:    bge     $t2, $t1, endfor        #       for(i=0; i < 515000 * ts; i++) {
+        addi    $t2, $t2, 1             #               i++;
+        j       for                     #       }
+endfor:                                 #
+        li      $v0, 0                  #       return 0;
         jr      $ra                     # }
