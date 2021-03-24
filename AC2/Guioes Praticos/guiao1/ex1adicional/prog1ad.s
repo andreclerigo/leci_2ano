@@ -18,7 +18,7 @@ do:                                     #       do {
         li      $v0, putChar            #
         syscall                         #           putChar('\r');  // Carriage return character 
         li      $t1, 3                  #           $t1 = 3;
-        slli    $t1, $t1, 4             #           $t1 = 3 << 16
+        sll     $t1, $t1, 4             #           $t1 = 3 << 16
         ori     $t1, $t1, 10            #           $t1 = 10 | 3 << 16
         move    $a1, $t1                #           base = $t1
         move    $a0, $s0                #       
@@ -29,7 +29,7 @@ do:                                     #       do {
         li      $v0, putChar            #
         syscall                         #           putChar('\t');  // Tab character 
         li      $t1, 8                  #           $t1 = 8;
-        slli    $t1, $t1, 4             #           $t1 = 8 << 16
+        sll     $t1, $t1, 4             #           $t1 = 8 << 16
         ori     $t1, $t1, 2             #           $t1 = 2 | 8 << 16
         move    $a1, $t1                #           base = $t1
         move    $a0, $t1                #

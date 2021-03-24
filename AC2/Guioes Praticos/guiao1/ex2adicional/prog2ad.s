@@ -91,7 +91,7 @@ for2:   lb      $t1, 0($t1)             #       $t1 = *src;
         j       for2                    #       }
 endfor2:
         move    $v0, $t0                #       return p;
-        jr      #ra                     # }
+        jr      $ra                     # }
 
 
 strcat:                                 # char *strcat(char *dst, char *src) {
@@ -100,11 +100,11 @@ strcat:                                 # char *strcat(char *dst, char *src) {
         sw      $ra, 4($sp)             #       salvaguardar $ra
         move    $s0, $a0                #       $s0 = dst;
 
-for4:   lb      $t0, 0($a0)             #       for (; *dst != '\0'; dst++) {
-        beq     $t0, '\0', endfor4      #
+for3:   lb      $t0, 0($a0)             #       for (; *dst != '\0'; dst++) {
+        beq     $t0, '\0', endfor3      #
         addiu   $a0, $a0, 1             #               dst++;
-        j       for4                    #       }
-endfor4:                                #       
+        j       for3                    #       }
+endfor3:                                #       
         jal     strcpy                  #       strcpy(dst, src);
         lw      $s0, 0($sp)             #       repor $s0
         lw      $ra, 4($sp)             #       repor $ra
