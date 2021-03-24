@@ -18,9 +18,7 @@ do:                                     #       do {
         li      $v0, putChar            #
         syscall                         #           putChar('\r');  // Carriage return character 
         li      $t1, 3                  #           $t1 = 3;
-        sll     $t1, $t1, 4             #           $t1 = 3 << 16
-        ori     $t1, $t1, 10            #           $t1 = 10 | 3 << 16
-        move    $a1, $t1                #           base = $t1
+        li      $a1, 0x0003000A
         move    $a0, $s0                #       
         li      $v0, printInt           #           $v0 = 6
         syscall                         #           printInt(cnt, base);  // 0x0003000A: decimal w/ 3 digits 
@@ -28,10 +26,7 @@ do:                                     #       do {
         li      $a0, '\t'               #           $a0 = '\t'
         li      $v0, putChar            #
         syscall                         #           putChar('\t');  // Tab character 
-        li      $t1, 8                  #           $t1 = 8;
-        sll     $t1, $t1, 4             #           $t1 = 8 << 16
-        ori     $t1, $t1, 2             #           $t1 = 2 | 8 << 16
-        move    $a1, $t1                #           base = $t1
+        li      $a1, 0x00080002
         move    $a0, $t1                #
         li      $v0, printInt           #           $v0 = 6
         syscall                         #           printInt(cnt, base);  // 0x00080002: binary w/ 8 bits
