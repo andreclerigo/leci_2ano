@@ -3,7 +3,6 @@
         .equ putChar, 3
         .equ printInt, 6
         .data
-str1:   .asciiz "Hello World\n"
         .text
         .globl main
 
@@ -17,8 +16,8 @@ main:                                   # int main(void) {
         li      $s1, 0                  #       cnt5 = 0;
         li      $s2, 0                  #       cnt1 = 0;
 while:                                  #       while(1) {
-        li      $a0, 1000               #               $a0 = 1000;
-        jal     delay                   #               delay(1000);
+        li      $a0, 100                #               $a0 = 100;
+        jal     delay                   #               delay(100);
                                         #
         li      $a0, '\r'               #               $a0 = '\r'
         li      $v0, putChar            #               $v0 = 3;
@@ -36,7 +35,7 @@ if:     rem     $t0, $s0, 2             #               if(cnt10 % 2 == 0) {
 endif:                                  #               }
 
 if2:    rem     $t0, $s0, 10            #               if(cnt10 % 10 == 0) {
-        bne     $t0, 0, endif           #
+        bne     $t0, 0, endif2          #
         addi    $s2, $s2, 1             #                       cnt1++;
 endif2:                                 #               }
                                         #

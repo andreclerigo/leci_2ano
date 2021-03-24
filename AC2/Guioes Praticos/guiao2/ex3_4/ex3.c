@@ -8,11 +8,11 @@ int main(void)
 
     while (1)
     {
-        delay(1000);
+        delay(100);
 
         putChar('\r');
         printInt(++cnt10, 0x0005000A);
-        
+
         if(cnt10 % 2 == 0){
             cnt5++;
         }
