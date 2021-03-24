@@ -6,7 +6,7 @@
         .data
 s1:     .asciiz "Introduza 2 strings: "
 s2:     .asciiz "Resultados:\n"
-str1:   .space                          # char str1[STR_MAX_SIZE + 1]
+str1:   .space 21                       # char str1[STR_MAX_SIZE + 1]
 str2:   .space 21                       # char str2[STR_MAX_SIZE + 1]
 str3:   .space 41                       # char str3[2 * STR_MAX_SIZE + 1]
         .text
