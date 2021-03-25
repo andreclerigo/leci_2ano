@@ -1,4 +1,4 @@
-.equ    RESET_CORE_TIMER, 12
+        .equ    RESET_CORE_TIMER, 12
         .equ    READ_CORE_TIMER, 11
         .equ    putChar, 3
         .equ    printInt, 6

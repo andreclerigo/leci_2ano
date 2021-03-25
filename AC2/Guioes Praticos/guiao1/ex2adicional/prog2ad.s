@@ -68,12 +68,11 @@ main:                                   # int main(void) {
 
 
 strlen:                                 # int strlen(char *s) {
-        move    $t1, $a0                #       $t1 = &s
-        li      $t0, 0                  #       len = 0;
-        li      $v0, 0                  #       $v0 = 0;
-for:    lb      $t2, 0($t1)             #       $t2 = *s
-        beq     $t2, '\0', endfor       #       for(len = 0; *s != '\0'; len++, s++) {
-        addiu   $t1, $t1, 1             #               $t1++;   //next position of string
+        move    $t0, $a0                #       $t0 = &s
+        li      $v0, 0                  #       len = 0;
+for:    lb      $t1, 0($t0)             #       $t1 = *s
+        beq     $t1, '\0', endfor       #       for(len = 0; *s != '\0'; len++, s++) {
+        addiu   $t0, $t0, 1             #               $t0++;   //next position of string
         addi    $v0, $v0, 1             #               len++;
         j       for                     #       }
 endfor:                                 #       return len;
@@ -81,16 +80,14 @@ endfor:                                 #       return len;
 
 
 strcpy:                                 # char *strcpy(char *dst, char *src) {
-        move    $t0, $a0                #       $t0 = &dst;
-        move    $t1, $a1                #       $t1 = &src;
-for2:   lb      $t1, 0($t1)             #       $t1 = *src;
+        move    $v0, $a0                #       char *p = dst;
+for2:   lb      $t1, 0($a1)             #       $t1 = *src;
         beq     $t1, '\0', endfor2      #       for(; *src = '\0'; dst++, src++) {
         sb      $t1, 0($a0)             #               *dst = *src;
         addiu   $a0, $a0, 1             #               dst++;
         addiu   $a1, $a1, 1             #               src++;
         j       for2                    #       }
-endfor2:
-        move    $v0, $t0                #       return p;
+endfor2:                                #       return p;
         jr      $ra                     # }
 
 
