@@ -50,10 +50,17 @@ main:                                   # int main(void) {
                                         #
         la      $a0, str3               #       $a0 = str3;
         la      $a1, str1               #       $a1 = str1;
-        jal     strcat                  #       strcat(str3, str1);
+        jal     strcpy                  #       strcpy(str3, str1);	
+        
+        
+        la      $a0, str3               #       $a0 = str3;
+        la      $a1, str2               #       $a1 = str2;
+        jal     strcat                  #       strcat(str3, str2);
+ 
         move    $a0, $v0                #       $v0 = 8;
-        li      $v0, printStr           #       printStr(strcat(str3, str1));
-                                        #
+        li      $v0, printStr           #       
+        syscall                         #	printStr(strcat(str3, str1));
+
         la      $a0, str1               #       $a0 = str1;
         la      $a1, str2               #       $a1 = str2;
         jal     strcmp                  #       strcmp(str1, str2);
@@ -62,7 +69,7 @@ main:                                   # int main(void) {
         syscall                         #       printInt10(strcmp(str1, str2));
                                         #               
         lw      $ra, 0($sp)             #       repor valor de $ra
-        addiu   $sp, $sp,               #       repor espaco na pilha
+        addiu   $sp, $sp, 4             #       repor espaco na pilha
         li      $v0, 0                  #       return 0;
         jr      $ra                     # }
 
@@ -82,8 +89,8 @@ endfor:                                 #       return len;
 strcpy:                                 # char *strcpy(char *dst, char *src) {
         move    $v0, $a0                #       char *p = dst;
 for2:   lb      $t1, 0($a1)             #       $t1 = *src;
-        beq     $t1, '\0', endfor2      #       for(; *src = '\0'; dst++, src++) {
         sb      $t1, 0($a0)             #               *dst = *src;
+        beq     $t1, '\0', endfor2      #       for(; *src = '\0'; dst++, src++) { ###mbc troquei esta instrução 
         addiu   $a0, $a0, 1             #               dst++;
         addiu   $a1, $a1, 1             #               src++;
         j       for2                    #       }
@@ -102,11 +109,11 @@ for3:   lb      $t0, 0($a0)             #       for (; *dst != '\0'; dst++) {
         addiu   $a0, $a0, 1             #               dst++;
         j       for3                    #       }
 endfor3:                                #       
-        jal     strcpy                  #       strcpy(dst, src);
+        jal     strcpy                  #       strcpy(dst, src)
+        move    $v0, $s0                #       return p;
         lw      $s0, 0($sp)             #       repor $s0
         lw      $ra, 4($sp)             #       repor $ra
         addiu   $sp, $sp, 8             #       repor tamanho da pilha
-        move    $v0, $s0                #       return p;
         jr      $ra                     # }
 
 
