@@ -24,7 +24,7 @@ loop:					#	while(true) {
 	andi	$t1, $t1, 1		#		$t1 = RB0
 	lw	$t2, LATE($t0)		#		$t2 = [LATE]
 	andi	$t2, $t2, 0xFFFE	#		RE0 = 0
-	or	$t2, $t2, $t1		#		RE0 = REB0
+	or	$t2, $t2, $t1		#		RE0 = RB0
 	sw	$t2, LATE($t0)		#
 	j	loop			#	}
 	li 	$v0, 0			#	return 0;
