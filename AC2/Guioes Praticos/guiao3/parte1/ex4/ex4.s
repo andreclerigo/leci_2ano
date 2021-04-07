@@ -1,3 +1,5 @@
+        .equ    RESET_CORE_TIMER, 12
+        .equ    READ_CORE_TIMER, 11
         .equ SFR_BASE_HI, 0xBF88
 	.equ TRISE, 0x6100
 	.equ PORTE, 0x6110
@@ -15,13 +17,14 @@ main:                                   # void main(void) {
         li      $s0, 0                  #       v = 0;
         lui     $s1, SFR_BASE_HI        #       
         lw      $t1, TRISE($s1)         #       $t1 = [TRISE];
-        addi    $t1, $t1, 0xFFFE        #       TRISE0 = 0;
+        andi    $t1, $t1, 0xFFFE        #       TRISE0 = 0;
         sw      $t1, TRISE($s1)         #       WRITE TRISE
 
 loop:                                   #       while(1) {
         lw      $t1, LATE($s1)          #               
         andi    $t1, $t1, 0xFFFE        #               LATE0 = 0;
         or      $t2, $t1, $s0           #               LATE0 = v;
+        sw      $t2, LATE($s1)          #               WRITE LATE Register
         li      $a0, 500                #               $a0 = 500;
         jal     delay                   #               delay(500);
         xori    $s0, $s0, 1             #               v ^= 1;
