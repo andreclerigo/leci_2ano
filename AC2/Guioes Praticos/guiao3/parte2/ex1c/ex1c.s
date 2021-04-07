@@ -32,7 +32,7 @@ loop:                                   #       while(1) {
         or      $t1, $s1, $t1           #               RE[3..0] = count;
         sw      $t1, LATE($s0)          #               WRITE LATE Register;
         li      $a0, 500                #
-        jal     delay                   #               delay(250);
+        jal     delay                   #               delay(500);
 
         lw      $t2, PORTB($s0)         #               $t2 = [PORTB]
         andi    $t2, $t2, 0x0008        #               $t2 = PORTB3
