@@ -31,7 +31,7 @@ loop:                                   #       while(1) {
         andi    $t1, $t1, 0xFFF0        #               RE[3..0] = 0;
         or      $t1, $s1, $t1           #               RE[3..0] = count;
         sw      $t1, LATE($s0)          #               WRITE LATE Register;
-        li      $a0, 250                #
+        li      $a0, 500                #
         jal     delay                   #               delay(250);
 
         lw      $t2, PORTB($s0)         #               $t2 = [PORTB]
