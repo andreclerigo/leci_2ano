@@ -1,9 +1,9 @@
         .equ    RESET_CORE_TIMER, 12
         .equ    READ_CORE_TIMER, 11
-        .equ SFR_BASE_HI, 0xBF88
-	.equ TRISE, 0x6100
-	.equ PORTE, 0x6110
-	.equ LATE, 0x6120
+        .equ    SFR_BASE_HI, 0xBF88
+	.equ    TRISE, 0x6100
+	.equ    PORTE, 0x6110
+	.equ    LATE, 0x6120
         .data
         .text
         .globl main
