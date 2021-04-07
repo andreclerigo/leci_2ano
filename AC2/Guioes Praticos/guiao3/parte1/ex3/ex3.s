@@ -19,7 +19,7 @@ main:					# int main(void) {
 	ori	$t1, $t1, 0x000F	#	RB0, RB1, RB2, RB3 = 1 (INPUT)
 	sw	$t1, TRISB($t0)		#	WRITE TRISB register
 
-loop:					#	while(true) {
+loop:					#	while(1) {
 	lw	$t1, PORTB($t0)		#		$t1 = [PORTB]
 	andi	$t1, $t1, 0x0000F	#		$t1 = RB3, RB2, RB1, RB0
 	xori    $t1, $t1, 0x00009	#		RB0 = RB0\ && RB3 = RB3\
