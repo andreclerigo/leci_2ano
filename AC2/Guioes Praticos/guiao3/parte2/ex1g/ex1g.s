@@ -38,15 +38,19 @@ loop:                                   #       while(1) {
         andi    $t2, $t2, 0x0002        #               $t2 = PORTB1
 if:     beq     $t2, $0, else           #               if(PORTB1 != 0) {
         sll     $s1, $s1, 1             #                       count << 1;
+        andi    $s1, $s1, 0x000F        #                       count &= 0x000F
+if_last:bne     $s1, $0, end            #                       if(count == 0) {
+        li      $s1, 1                  #                               count = 1;
+end:                                    #                       }
         j       endif                   #               } else {
 else:                                   #
         srl     $s1, $s1, 1             #                       count >> 1;
+        andi    $s1, $s1, 0x000F        #                       count &= 0x000F
+iflast: bne     $s1, 1, end2            #                       if(count == 1) {
+        li      $s1, 8                  #                               count = 8;
+end2:                                   #                       }
 endif:                                  #               }
-        andi    $s1, $s1, 0x000F        #               count &= 0x000F
                                         #
-if_last:bne     $s1, $0, end            #               if(count == 0) {
-        li      $s1, 1                  #                       count = 1;
-end:                                    #               }
         j       loop                    #       }
         
         lw      $ra, 0($sp)             #       repor $ra
