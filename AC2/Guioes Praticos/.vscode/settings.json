@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "detpic32.h": "c",
+        "p32mx795f512h.h": "c"
+    }
+}
