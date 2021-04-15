@@ -14,7 +14,7 @@ int display7Scode[] = {
                         0x77, //A
                         0x7C, //b
                         0x39, //C
-                        0x57, //d
+                        0x5E, //d
                         0x79, //E
                         0x71  //F
                     };
