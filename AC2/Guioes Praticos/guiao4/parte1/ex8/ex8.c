@@ -18,13 +18,14 @@ int main (void)
                                         0x77, //A
                                         0x7C, //b
                                         0x39, //C
-                                        0x57, //d
+                                        0x5E, //d
                                         0x79, //E
                                         0x71  //F
                                     };
 
     TRISB = TRISB | 0x000F;         // RB3 to RB0 as input
-    TRISB = TRISB & 0x809F;         // RB14 to RB8 and RB6 and 5 as output
+    TRISB = TRISB & 0x80FF;         // RB14 to RB8 as output
+    TRISD = TRISD & 0xFF9F;
     LATDbits.LATD5 = 1;             // Display low active
     int index;
     int value;
