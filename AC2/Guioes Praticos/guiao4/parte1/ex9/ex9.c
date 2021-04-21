@@ -1,7 +1,5 @@
 #include <detpic32.h>
 
-void delay(int ms);
-
 int main (void)
 {
     static const char display7Scode[] = {
