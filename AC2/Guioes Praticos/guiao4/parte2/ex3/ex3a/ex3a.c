@@ -8,13 +8,18 @@ int main(void)
     TRISB = TRISB & 0x80FF;         // RB14 to RB8 as output
     TRISD = TRISD & 0xFF9F;         // Displays high/low as output
 
+    unsigned char var = 0;
     unsigned char cont = 0;
     while (1)
     {
-        cont = cont & 0xFF;
+        var = var & 0xFF;
+        if (var % 2 == 0) 
+        {
+            cont++;
+        }
         send2displays(cont);
         delay(200);                 // delay 200ms -> 5Hz
-        cont++;
+        var++;
     }
     return 0;
 }
@@ -41,19 +46,22 @@ void send2displays(unsigned char value)
                                         };
     static char displayFlag = 0;
 
-    unsigned char dh = value & 0xF0;    // value >> 4;
+    unsigned char dh = value >> 4;
     unsigned char dl = value & 0x0F;
 
 
     dh = display7Scodes[dh];
     dl = display7Scodes[dl];
-
-    LATD = (LATD | 0x0040) & 0xFFDF;
-    LATB = (LATB & 0x80FF) | ((unsigned int)(dh)) << 8;
-    delay(2);                           // Debug
-
-    LATD = (LATD | 0x0020) & 0xFFBF;
-    LATB = (LATB & 0x80FF) | ((unsigned int)(dl)) << 8;
+    
+    if (displayFlag == 0)
+    {
+        LATD = (LATD | 0x0040) & 0xFFDF;
+        LATB = (LATB & 0x80FF) | ((unsigned int)(dh)) << 8;
+    } else {
+        LATD = (LATD | 0x0020) & 0xFFBF;
+        LATB = (LATB & 0x80FF) | ((unsigned int)(dl)) << 8;
+    }
+    displayFlag = !displayFlag;
 }
 
 void delay(int ms)

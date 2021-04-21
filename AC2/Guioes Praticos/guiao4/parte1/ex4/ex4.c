@@ -13,6 +13,7 @@ int main (void)
 
     while (1)
     {   
+        // Toggle displays active
         LATDbits.LATD6 = !LATDbits.LATD6;
         LATDbits.LATD5 = !LATDbits.LATD5;
         segment = 1;
