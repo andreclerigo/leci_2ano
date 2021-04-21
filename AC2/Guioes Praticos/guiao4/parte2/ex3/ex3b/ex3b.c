@@ -44,20 +44,20 @@ void send2displays(unsigned char value)
                                         };
     static char displayFlag = 0;
 
-    unsigned char dh = value >> 4;
-    unsigned char dl = value & 0x0F;
-
-
+    unsigned char dh = value >> 4;      // Get the index of the decimal part
+    unsigned char dl = value & 0x0F;    // Get the index of the unitary part
+    
+    // Get the correct hex code for the number
     dh = display7Scodes[dh];
     dl = display7Scodes[dl];
     
     if (displayFlag == 0)
     {
-        LATD = (LATD | 0x0040) & 0xFFDF;
-        LATB = (LATB & 0x80FF) | ((unsigned int)(dh)) << 8;
+        LATD = (LATD | 0x0040) & 0xFFDF;    // Dipslay High active and Display Low OFF
+        LATB = (LATB & 0x80FF) | ((unsigned int)(dh)) << 8; // Clean the display and set the right value
     } else {
-        LATD = (LATD | 0x0020) & 0xFFBF;
-        LATB = (LATB & 0x80FF) | ((unsigned int)(dl)) << 8;
+        LATD = (LATD | 0x0020) & 0xFFBF;    // Display High OFF and Display High active
+        LATB = (LATB & 0x80FF) | ((unsigned int)(dl)) << 8; // Clean the display and set the right value
     }
     displayFlag = !displayFlag;
 }

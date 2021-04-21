@@ -17,11 +17,11 @@ int main(void)
         i++;
         send2displays(toBcd(counter));
         delay(10);                  // delay 10 ms -> update display at 100hz
-        if(i % 20 == 0)            // update counter at -> 1hz
-            if (++counter == 60)
+        if(i % 20 == 0)             // update counter at -> 1hz
+            if (++counter == 60)    // counter's module is 60 (counts from 0 to 59)
             {
                 counter = 0;
-                warningReset(5000, counter);
+                warningReset(5000, counter);    // Warn the counter has gone to 0 for 5 sec (blinking)
             }              
     }
     return 0;
@@ -31,16 +31,16 @@ void warningReset(int ms, unsigned char value)
 {   
     int cnt = 0;
     int i;
-    while (cnt < 5)
+    while (cnt < 5)                 // Blink for 5 seconds
     {
         i = 1;
-        while(i % 50 != 0)
+        while(i % 50 != 0)          // Light up both displays at freq 100Hz
         {
             send2displays(toBcd(value));
-            delay(10); 
+            delay(10);              
             i++;
         }
-        LATB = (LATB & 0x80FF);
+        LATB = (LATB & 0x80FF);     // Clean of both segments
         delay(500);                 // delay 500ms
         cnt++;
     }
@@ -68,21 +68,22 @@ void send2displays(unsigned char value)
                                         };
     static char displayFlag = 0;
 
-    unsigned char dh = value >> 4;
-    unsigned char dl = value & 0x0F;
-
-
+    unsigned char dh = value >> 4;      // Get the index of the decimal part
+    unsigned char dl = value & 0x0F;    // Get the index of the unitary part
+    
+    // Get the correct hex code for the number
     dh = display7Scodes[dh];
     dl = display7Scodes[dl];
     
     if (displayFlag == 0)
     {
-        LATD = (LATD | 0x0040) & 0xFFDF;
-        LATB = (LATB & 0x80FF) | ((unsigned int)(dh)) << 8;
+        LATD = (LATD | 0x0040) & 0xFFDF;    // Dipslay High active and Display Low OFF
+        LATB = (LATB & 0x80FF) | ((unsigned int)(dh)) << 8; // Clean the display and set the right value
     } else {
-        LATD = (LATD | 0x0020) & 0xFFBF;
-        LATB = (LATB & 0x80FF) | ((unsigned int)(dl)) << 8;
+        LATD = (LATD | 0x0020) & 0xFFBF;    // Display High OFF and Display High active
+        LATB = (LATB & 0x80FF) | ((unsigned int)(dl)) << 8; // Clean the display and set the right value
     }
+
     displayFlag = !displayFlag;
 }
 

@@ -11,9 +11,9 @@ int main(void)
     unsigned char cont = 0;
     while (1)
     {
-        cont = cont & 0xFF;
-        send2displays(cont);
-        delay(200);                 // delay 200ms -> 5Hz
+        cont = cont & 0xFF;         // Mask the 8 LSB from the counter
+        send2displays(cont);        
+        delay(200);                 // Delay 200ms -> 5Hz
         cont++;
     }
     return 0;
@@ -39,17 +39,19 @@ void send2displays(unsigned char value)
                                         0x79, //E
                                         0x71  //F
                                         };
-    unsigned char dh = value >> 4;
-    unsigned char dl = value & 0x0F;
-    dh = display7Scodes[dh];
+    unsigned char dh = value >> 4;      // Get the index of the decimal part
+    unsigned char dl = value & 0x0F;    // Get the index of the unitary part
+    
+    // Get the correct hex code for the number
+    dh = display7Scodes[dh];           
     dl = display7Scodes[dl];
 
-    LATD = (LATD | 0x0040) & 0xFFDF;
-    LATB = (LATB & 0x80FF) | ((unsigned int)(dh)) << 8;
-    delay(2);                           // Debug
+    LATD = (LATD | 0x0040) & 0xFFDF;    // Dipslay High active and Display Low OFF
+    LATB = (LATB & 0x80FF) | ((unsigned int)(dh)) << 8; // Clean the display and set the right value
+    delay(2);                                           // Debug (see the first display light up slightly)
 
-    LATD = (LATD | 0x0020) & 0xFFBF;
-    LATB = (LATB & 0x80FF) | ((unsigned int)(dl)) << 8;
+    LATD = (LATD | 0x0020) & 0xFFBF;    // Display High OFF and Display High active
+    LATB = (LATB & 0x80FF) | ((unsigned int)(dl)) << 8; // Clean the display and set the right value
 }
 
 void delay(int ms)

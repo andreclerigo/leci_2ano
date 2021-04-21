@@ -19,7 +19,7 @@ int main (void)
         {
             LATB = (LATB & 0x80FF) | ((unsigned int)(segment)) << 8;  // Clean the display and set the right display ON
             delay(5);                   // delays 5ms -> freq = 200hz
-            segment = segment << 1;
+            segment = segment << 1;     // shift display to get the next segment
         }
     }
     

@@ -32,7 +32,7 @@ int main (void)
     {
         index = PORTB & 0x000F;         // Do a mask to get the correct index from the dip switch
         value = display7Scode[index];   // Get the correct code for the value
-        LATB = (LATB & 0x80FF) | ((unsigned int)(value)) << 8;  // Clean the display and set the right display ON
+        LATB = (LATB & 0x80FF) | ((unsigned int)(value)) << 8;  // Clean the display and set the right value
     }
     
     return 0;
