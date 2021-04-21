@@ -39,8 +39,12 @@ void send2displays(unsigned char value)
                                         0x79, //E
                                         0x71  //F
                                         };
-    unsigned char dh = value >> 4;
+    static char displayFlag = 0;
+
+    unsigned char dh = value & 0xF0;    // value >> 4;
     unsigned char dl = value & 0x0F;
+
+
     dh = display7Scodes[dh];
     dl = display7Scodes[dl];
 
