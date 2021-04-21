@@ -21,18 +21,18 @@ int main (void)
                                         0x71  //F
                                     };
 
-    TRISB = TRISB | 0x000F;         // RB3 to RB0 as input
-    TRISB = TRISB & 0x80FF;         // RB14 to RB8 as output
+    TRISB = TRISB | 0x000F;             // RB3 to RB0 as input
+    TRISB = TRISB & 0x80FF;             // RB14 to RB8 as output
     TRISD = TRISD & 0xFF9F;
-    LATDbits.LATD6 = 1;             // Display high active
+    LATDbits.LATD6 = 1;                 // Display high active
     int index;
     int value;
 
     while (1)
     {
-        index = PORTB & 0x000F;
-        value = display7Scode[index];
-        LATB = (LATB & 0x80FF) | ((unsigned int)(value)) << 8;
+        index = PORTB & 0x000F;         // Do a mask to get the correct index from the dip switch
+        value = display7Scode[index];   // Get the correct code for the value
+        LATB = (LATB & 0x80FF) | ((unsigned int)(value)) << 8;  // Clean the display and set the right display ON
     }
     
     return 0;
