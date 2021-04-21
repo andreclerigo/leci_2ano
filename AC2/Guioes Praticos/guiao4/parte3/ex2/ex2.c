@@ -14,10 +14,13 @@ int main(void)
     while(1)
     {
         i++;
-        send2displays(counter);
-        delay(50);                  // delay 50 ms -> update display at 20hz
-        if(i % 4 == 0)
-            counter++;              // update counter at -> 5hz
+        send2displays(toBcd(counter));
+        delay(10);                  // delay 10 ms -> update display at 100hz
+        if(i % 100 == 0)            // update counter at -> 1hz
+            if (++counter == 60)
+            {
+                counter = 0;
+            }              
     }
     return 0;
 }
@@ -60,6 +63,11 @@ void send2displays(unsigned char value)
         LATB = (LATB & 0x80FF) | ((unsigned int)(dl)) << 8;
     }
     displayFlag = !displayFlag;
+}
+
+unsigned char toBcd(unsigned char value) 
+{
+    return ((value / 10) << 4) + (value % 10);
 }
 
 void delay(int ms)
