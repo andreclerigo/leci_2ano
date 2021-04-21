@@ -13,14 +13,14 @@ int main (void)
 
     while (1)
     {   
-        // Toggle displays active
+        // Toggle displays selection
         LATDbits.LATD6 = !LATDbits.LATD6;
         LATDbits.LATD5 = !LATDbits.LATD5;
         segment = 1;
         for (i = 0; i < 7; i++)
         {
             LATB = (LATB & 0x80FF) | ((unsigned int)(segment)) << 8;
-            delay(500);     // wait 0.5s
+            delay(500);     // wait 0.5s -> 2Hz
             segment = segment << 1;
         }
     }
