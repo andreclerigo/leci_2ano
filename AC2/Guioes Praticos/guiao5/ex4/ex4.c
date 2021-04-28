@@ -1,6 +1,7 @@
 #include <detpic32.h>
 
 void delay(int ms);
+int voltageConversion(int VAL_AD);
 
 int main(void)
 {
@@ -14,6 +15,9 @@ int main(void)
     AD1CHSbits.CH0SA = 4;       // analog channel input 4
     AD1CON1bits.ON = 1;         // Enable the A/d configuration sequence
 
+    int i;
+    int voltage;
+
     while (1)
     {
         AD1CON1bits.ASAM = 1;               // Start conversion
@@ -21,19 +25,24 @@ int main(void)
         
         int *p = (int *)(&ADC1BUF0);
 
-        int i;
-        for (i = 0; i < 16; i++)        // Get the values for the 16 samples
+        for (i = 0; i < 16; i++)                // Get the values for the 16 samples
         {
-            printInt(p[i*4], 10 | 4 << 16); // print value in decimal with 4 digits
-            putChar(' ');                   // blank space between numbers
+            voltage = voltageConversion(p[i*4]);    
+            printInt(voltage, 10 | 2 << 16);    // Print value in decimal with 4 digits
+            putChar(' ');                       // blank space between numbers
         }
-        putChar('\n');                      // newline
+        putChar('\n');                          // newline
 
-        delay(200);                         // wait 100ms
-        IFS1bits.AD1IF = 0;                 // Reset AD1IF
+        delay(200);                             // wait 100ms
+        IFS1bits.AD1IF = 0;                     // Reset AD1IF
     }
     
     return 0;
+}
+
+int voltageConversion(int VAL_AD)
+{
+    return (VAL_AD * 33 + 511) / 1023;
 }
 
 void delay(int ms)

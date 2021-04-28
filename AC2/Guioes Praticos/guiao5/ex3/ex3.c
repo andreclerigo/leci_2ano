@@ -13,6 +13,7 @@ int main(void)
     AD1CON2bits.SMPI = 5;       // Interrupt is generated after 4 samples
     AD1CHSbits.CH0SA = 4;       // analog channel input 4
     AD1CON1bits.ON = 1;         // Enable the A/d configuration sequence
+    int i;
 
     while (1)
     {
@@ -21,7 +22,6 @@ int main(void)
         
         int *p = (int *)(&ADC1BUF0);
 
-        int i;
         for (i = 0; i < 16; i++)        // Get the values for the 16 samples
         {
             printInt(p[i*4], 10 | 4 << 16); // print value in decimal with 4 digits
