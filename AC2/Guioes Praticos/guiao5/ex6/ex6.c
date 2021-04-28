@@ -20,12 +20,12 @@ int main(void)
     while (1)
     {
         AD1CON1bits.ASAM = 1;               // Start conversion
-        resetCoreTimer();
+        resetCoreTimer();                   
         while ( IFS1bits.AD1IF == 0 );      // Wait while conversion not done   
-        time = readCoreTimer();
-        aux = ADC1BUF0;
+        time = readCoreTimer();             // Get the time it took to convert the value
+        aux = ADC1BUF0;                     // Read the buffer to not get blocked
         
-        printInt10(time * 50);
+        printInt10(time * 50);  // print the value in nanoseconds
         delay(500);             // wait 500ms
         putChar('\n');          // newline
 

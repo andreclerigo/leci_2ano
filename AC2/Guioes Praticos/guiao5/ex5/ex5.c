@@ -32,14 +32,14 @@ int main(void)
             
             int *p = (int *)(&ADC1BUF0);
 
-            for (i = 0; i < 4; i++)                // Get the values for the 16 samples
+            for (i = 0; i < 4; i++)             // Get the values for the 4 samples
             {
-                sum += p[i*4];  
+                sum += p[i*4];                  // Sum the values of the 4 buffers
             }
 
-            voltage = voltageConversion(sum) / 4;
+            voltage = voltageConversion(sum) / 4;   //Average the voltage value to decimal
         }
-        send2displays(toBcd(voltage));
+        send2displays(toBcd(voltage));          // Print the value in BCD
 
         delay(10);                              // wait 10ms
         IFS1bits.AD1IF = 0;                     // Reset AD1IF
