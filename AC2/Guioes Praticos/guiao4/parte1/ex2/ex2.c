@@ -4,6 +4,7 @@ void delay(int ms);
 
 int main (void)
 {
+	LATE = LATE & 0xFFF0;		// Force 0 as the outpu
     TRISE = TRISE & 0xFFF0;     // Configure port as outpus
     int cnt = 0;
 
