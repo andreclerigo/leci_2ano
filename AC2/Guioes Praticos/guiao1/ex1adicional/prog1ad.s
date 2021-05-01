@@ -52,7 +52,7 @@ else:                                   #           else {
         addi    $s1, $s1, -1            #               cnt = cnt - 1;
         andi    $s1, $s1, 0xFF          #               cnt = (cnt + 1) & 0xFF;
 endif3:                                 #           }
-while:  bne     $s0, 'q', do            #       } while(c != 'q');
+while:  bne     $t0, 'q', do            #       } while(c != 'q');
         lw      $ra, 0($sp)             #       repor $ra
         lw      $s0, 4($sp)             #       repor $s0
         lw      $s1, 8($sp)             #       repor $s1
