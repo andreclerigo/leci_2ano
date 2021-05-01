@@ -6,7 +6,7 @@
                 "${workspaceFolder}/**",
                 "/opt/pic32mx/include/*"
             ],
-            "defines": [],
+            "defines": ["__LANGUAGE_C__"],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "gnu17",
             "cppStandard": "gnu++14",
