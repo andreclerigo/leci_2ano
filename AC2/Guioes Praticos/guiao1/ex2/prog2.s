@@ -8,10 +8,11 @@ main:                               # int main(void){
 do:                                 #    do {
         li      $v0, getChar        #        c = getChar();
         syscall                     #        
-        move    $a0, $v0            #        $a0 = c;
-if:     beq     $v0, '\n', while    #        if(c!= '\n')
+        move    $t0, $v0            #        $t0 = c;
+     	beq     $t0, '\n', while    #        if(c!= '\n')
         li      $v0, putChar        #           putChar(c)   
-        syscall                     #
-while:  bne     $a0, '\n', do       #    }while(c != '\n');
+        move	$a0, $t0			#
+		syscall                     #
+while:  bne     $t0, '\n', do       #    }while(c != '\n');
         li      $v0, 0              #    return 0;
         jr      $ra                 # }  fim do programa
