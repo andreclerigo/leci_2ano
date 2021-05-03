@@ -20,17 +20,19 @@ int main(void)
 
     while (1)
     {
-        AD1CON1bits.ASAM = 1;               // Start conversion
-        while ( IFS1bits.AD1IF == 0 );      // Wait while conversion not done
+        AD1CON1bits.ASAM = 1;               	// Start conversion
+        while ( IFS1bits.AD1IF == 0 );      	// Wait while conversion not done
         
         int *p = (int *)(&ADC1BUF0);
 
-        for (i = 0; i < 16; i++)                // Get the values for the 16 samples
+		voltage = 0;
+
+        for (i = 0; i < 4; i++)                	// Get the values for the 16 samples
         {
-            voltage = voltageConversion(p[i*4]);    
-            printInt(voltage, 10 | 2 << 16);    // Print value in decimal with 4 digits
-            putChar(' ');                       // blank space between numbers
+            voltage += voltageConversion(p[i*4]);    
+            //putChar(' ');                       // blank space between numbers
         }
+		printInt(voltage/4, 10 | 2 << 16);
         putChar('\n');                          // newline
 
         delay(200);                             // wait 100ms
