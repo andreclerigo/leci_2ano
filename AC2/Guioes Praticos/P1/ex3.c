@@ -31,8 +31,9 @@ int main(void)
         while( IFS1bits.AD1IF == 0);
         value = ADC1BUF0;
         int freq = 1 + (value/255);
+        int period = (1/freq) * 1000;
 
-        if (i++ % ((freq*1000)/20)){
+        if (i++ % (period/20)){
             cnt--;
         }
         cnt = cnt & 0x13;

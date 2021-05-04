@@ -4,9 +4,9 @@ Microchip PIC32 Memory-Usage Report
 kseg0 Program-Memory Usage
 section                    address  length [bytes]      (dec)  Description
 -------                 ----------  -------------------------  -----------
-.text                   0x9d001400          0x398         920  Application's executable code 
-.rodata                 0x9d001798           0x28          40  Read-only constant data 
-      Total kseg0_program_mem used  :       0x3c0         960  0.2% of 0x7ec00
+.text                   0x9d001400          0x3c8         968  Application's executable code 
+.rodata                 0x9d0017c8           0x28          40  Read-only constant data 
+      Total kseg0_program_mem used  :       0x3f0        1008  0.2% of 0x7ec00
 
 kseg0 Boot-Memory Usage
 section                    address  length [bytes]      (dec)  Description
@@ -25,7 +25,7 @@ section                    address  length [bytes]      (dec)  Description
 -------                 ----------  -------------------------  -----------
          Total kseg1_boot_mem used  :           0           0  <1% of 0x490
         --------------------------------------------------------------------------
-         Total Program Memory used  :       0x684        1668  0.3% of 0x80480
+         Total Program Memory used  :       0x6b4        1716  0.3% of 0x80480
         --------------------------------------------------------------------------
 
 
@@ -369,48 +369,48 @@ LOAD /opt/pic32mx/lib/startup.o
  *(.vector_63)
                 0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_63) <= (_vector_spacing << 0x5))), function at exception vector 63 too large)
 
-.text           0x000000009d001400      0x398
+.text           0x000000009d001400      0x3c8
                 0x000000009d001400                _text_begin = .
  *(.text .stub .text.* .gnu.linkonce.t.*)
- .text          0x000000009d001400      0x2e8 ex3.o
+ .text          0x000000009d001400      0x318 ex3.o
                 0x000000009d001438                send2displays
                 0x000000009d001400                toBcd
                 0x000000009d001578                main
                 0x000000009d001524                delay
- .text          0x000000009d0016e8       0xb0 /opt/pic32mx/lib/startup.o
-                0x000000009d001758                printStr
-                0x000000009d001738                printInt
-                0x000000009d001718                readInt
-                0x000000009d001790                resetCoreTimer
-                0x000000009d001708                putChar
-                0x000000009d001768                readStr
-                0x000000009d001778                exxt
-                0x000000009d001748                printInt10
-                0x000000009d0016e8                inkey
-                0x000000009d0016f8                getChar
-                0x000000009d001728                readInt10
-                0x000000009d001788                readCoreTimer
+ .text          0x000000009d001718       0xb0 /opt/pic32mx/lib/startup.o
+                0x000000009d001788                printStr
+                0x000000009d001768                printInt
+                0x000000009d001748                readInt
+                0x000000009d0017c0                resetCoreTimer
+                0x000000009d001738                putChar
+                0x000000009d001798                readStr
+                0x000000009d0017a8                exxt
+                0x000000009d001778                printInt10
+                0x000000009d001718                inkey
+                0x000000009d001728                getChar
+                0x000000009d001758                readInt10
+                0x000000009d0017b8                readCoreTimer
  *(.text.*personality*)
  *(.gnu.warning)
  *(.mips16.fn.*)
  *(.mips16.call.*)
-                0x000000009d001798                _text_end = .
+                0x000000009d0017c8                _text_end = .
 
-.rodata         0x000000009d001798       0x28
+.rodata         0x000000009d0017c8       0x28
  *(.rodata .rodata.* .gnu.linkonce.r.*)
- .rodata        0x000000009d001798       0x10 ex3.o
- .rodata        0x000000009d0017a8       0x15 /opt/pic32mx/lib/startup.o
+ .rodata        0x000000009d0017c8       0x10 ex3.o
+ .rodata        0x000000009d0017d8       0x15 /opt/pic32mx/lib/startup.o
  *(.rodata1)
-                0x000000009d0017c0                . = ALIGN (0x4)
- *fill*         0x000000009d0017bd        0x3 00
+                0x000000009d0017f0                . = ALIGN (0x4)
+ *fill*         0x000000009d0017ed        0x3 00
 
-.sdata2         0x000000009d0017c0        0x0
+.sdata2         0x000000009d0017f0        0x0
  *(.sdata2 .sdata2.* .gnu.linkonce.s2.*)
-                0x000000009d0017c0                . = ALIGN (0x4)
+                0x000000009d0017f0                . = ALIGN (0x4)
 
-.sbss2          0x000000009d0017c0        0x0
+.sbss2          0x000000009d0017f0        0x0
  *(.sbss2 .sbss2.* .gnu.linkonce.sb2.*)
-                0x000000009d0017c0                . = ALIGN (0x4)
+                0x000000009d0017f0                . = ALIGN (0x4)
 
 .eh_frame_hdr
  *(.eh_frame_hdr)
@@ -421,12 +421,12 @@ LOAD /opt/pic32mx/lib/startup.o
 .dbg_data       0x00000000a0000000        0x0
                 0x00000000a0000000                . = (. + DEFINED (_DEBUGGER)?0x200:0x0)
 
-.data           0x00000000a0000000        0x0 load address 0x000000009d0017c0
+.data           0x00000000a0000000        0x0 load address 0x000000009d0017f0
                 0x00000000a0000000                _data_begin = .
  *(.data .data.* .gnu.linkonce.d.*)
  *(.gnu.linkonce.d.*personality*)
  *(.data1)
-                0x000000009d0017c0                _data_image_begin = LOADADDR (.data)
+                0x000000009d0017f0                _data_image_begin = LOADADDR (.data)
 
 .eh_frame
  *(.eh_frame)
@@ -436,7 +436,7 @@ LOAD /opt/pic32mx/lib/startup.o
  *(.got.plt)
  *(.got)
 
-.sdata          0x00000000a0000000        0x0 load address 0x000000009d0017c0
+.sdata          0x00000000a0000000        0x0 load address 0x000000009d0017f0
                 0x00000000a0000000                _sdata_begin = .
  *(.sdata .sdata.* .gnu.linkonce.s.*)
                 0x00000000a0000000                _sdata_end = .
@@ -481,12 +481,12 @@ LOAD /opt/pic32mx/lib/startup.o
                 0x00000000a0002008                . = (. + _min_stack_size)
  *fill*         0x00000000a0000008     0x2000 00
 
-.ramfunc        0x00000000a0002800        0x0 load address 0x000000009d0017c0
+.ramfunc        0x00000000a0002800        0x0 load address 0x000000009d0017f0
                 0x00000000a0002800                _ramfunc_begin = .
  *(.ramfunc .ramfunc.*)
                 0x00000000a0002800                . = ALIGN (0x4)
                 0x00000000a0002800                _ramfunc_end = .
-                0x000000009d0017c0                _ramfunc_image_begin = LOADADDR (.ramfunc)
+                0x000000009d0017f0                _ramfunc_image_begin = LOADADDR (.ramfunc)
                 0x0000000000000000                _ramfunc_length = SIZEOF (.ramfunc)
                 0x0000000000002800                _bmxdkpba_address = (_ramfunc_begin - 0xa0000000)
                 0x0000000000020000                _bmxdudba_address = 0x20000
@@ -579,4 +579,4 @@ LOAD /opt/pic32mx/lib/startup.o
  *(.note.GNU-stack)
 OUTPUT(ex3.elf elf32-tradlittlemips)
 
-.mdebug.abi32   0x000000009d0017c0        0x0
+.mdebug.abi32   0x000000009d0017f0        0x0
