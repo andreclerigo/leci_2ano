@@ -20,7 +20,7 @@ int main(void)
     TRISB = TRISB & 0x80FF;         // RB14 to RB8 as output
     TRISD = TRISD & 0xFF9F;         // Displays high/low as output
 
-    int voltage, i, sum, j = 0, counter = 0;
+    int voltage = 0, i, sum, j = 0;
 
     while (1)
     {
