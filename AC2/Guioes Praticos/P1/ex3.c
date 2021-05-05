@@ -31,15 +31,17 @@ int main(void)
         while( IFS1bits.AD1IF == 0);
         value = ADC1BUF0;
         int freq = 1 + (value/255);
-        int period = (1/freq) * 1000;
+        int period = (1.0/freq) * 1000;
 
-        if (i++ % (period/20)){
+	if (i++ % (period/20) == 0){
             cnt--;
         }
-        cnt = cnt & 0x13;
 
         send2displays(toBcd(cnt));
-
+       
+        if(cnt == 0)
+            cnt = 19;
+        
         delay(20);
         IFS1bits.AD1IF = 0;
     }
