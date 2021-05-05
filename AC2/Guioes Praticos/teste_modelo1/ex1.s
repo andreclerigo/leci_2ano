@@ -50,7 +50,7 @@ else:
 	sw	$t1, LATE($s0)
 	li	$a0, 2000
 	jal 	delay
-	andi	$t1, $t1, 0xFFFE0
+	andi	$t1, $t1, 0xFFE0
 	sw	$t1, LATE($s0)
 endif:
 	j	loop

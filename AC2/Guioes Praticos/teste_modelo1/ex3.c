@@ -39,7 +39,7 @@ int main(void)
 
         send2displays(toBcd(cnt));
        
-        if(cnt == 0)
+        if(cnt < 0)
             cnt = 19;
         
         delay(20);
