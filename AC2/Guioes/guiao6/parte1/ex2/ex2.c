@@ -2,7 +2,8 @@
 
 void delay(int ms);
 int voltageConversion(int VAL_AD);
-void send2display(char value);
+void send2displays(char value);
+int toBcd(int value);
 
 volatile unsigned char voltage = 0; // Global variable
 
@@ -20,8 +21,18 @@ int main(void)
     AD1CHSbits.CH0SA = 4;       // analog channel input 4
     AD1CON1bits.ON = 1;         // Enable the A/d configuration sequence
 
+    // Enable interrupts ADC
+    IPC6bits.AD1IP = 2;         // configure priority of A/D interrupts
+    IFS1bits.AD1IF = 0;         // clear A/D interrupt flag
+    IEC1bits.AD1IE = 1;         // enable A/D interrupts
+
+    // Configure displays
+    TRISB = TRISB & 0x80FF;         // RB14 to RB8 as output
+    TRISD = TRISD & 0xFF9F;         // Displays high/low as output
+
     EnableInterrupts();
 
+    AD1CON1bits.ASAM = 1;       // Start conversion
 
     while (1) 
     { 
@@ -30,10 +41,10 @@ int main(void)
             AD1CON1bits.ASAM = 1;       // Start conversion
         }
 
-
+        send2displays(voltage);
 
         cnt++;
-        delay(10)               // wait 10ms -> freq = 100Hz
+        delay(10);               // wait 10ms -> freq = 100Hz
     }
        
     return 0;
@@ -42,15 +53,15 @@ int main(void)
 //Interrupt handler
 void _int_(27) isr_adc(void)
 {
-    int *p = &ADC1BUF0;
-    int i, average, voltage;
+    int *p = (int *) &ADC1BUF0;
+    int i, average = 0;
 
     for (i = 0; i < 8; i++)
     {
         average += p[i * 4];
     }
 
-    voltage = voltageConversion(average / 4);
+    voltage = toBcd(voltageConversion(average / 8));
     
     IFS1bits.AD1IF = 0;
 }
@@ -102,11 +113,16 @@ int voltageConversion(int VAL_AD)
     return (VAL_AD * 33 + 511) / 1023; 
 }
 
+int toBcd(int value)
+{
+    return ((value/10) << 4) + (value % 10);
+}
+
 void delay(int ms)
 {
     for (; ms > 0; ms--)
     {
         resetCoreTimer();
-        while (readCoreTime() < 20000);
+        while (readCoreTimer() < 20000);
     }
 }
