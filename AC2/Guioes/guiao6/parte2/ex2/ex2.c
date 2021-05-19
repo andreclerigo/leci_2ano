@@ -1,6 +1,7 @@
 #include <detpic32.h>
 
 volatile int adc_value;
+volatile int flag = 0;
 
 int main(void)
 {
@@ -24,8 +25,20 @@ int main(void)
     EnableInterrupts();
 
     AD1CON1bits.ASAM = 1;       // Start conversion
-    resetCoreTimer();
-    while (1) { }
+    int time;
+
+    while (1) 
+    {
+        if (flag == 1)
+        {
+            time = readCoreTimer();
+            LATE = LATE & 0xFFFE;       // LATE0 = 0;
+            time *= 50;                 // Convert to ns (PBClk -> 20Mhz -> 50ns)
+            printInt10(time);
+            putChar('\n');
+            flag = 0;
+        }
+    }
        
     return 0;
 }
@@ -33,18 +46,12 @@ int main(void)
 //Interrupt handler
 void _int_(27) isr_adc(void)
 {
-    int time = readCoreTimer();
-
-    LATE = LATE & 0xFFFE;       // LATE0 = 0;
     adc_value = ADC1BUF0;
-    LATE = LATE | 0x0001;       // LATE0 = 1;
 
-    time *= 50;                 // Convert to ns (PBClk -> 20Mhz -> 50ns)
-    time -= 3600;               // Remove the time kown for conversion
-    printInt10(time);
-    putChar('\n');
-
-    resetCoreTimer();
     AD1CON1bits.ASAM = 1;       // Start conversion
     IFS1bits.AD1IF = 0;
+
+    LATE = LATE | 0x0001;       // LATE0 = 1;
+    flag = 1;
+    resetCoreTimer();
 }
