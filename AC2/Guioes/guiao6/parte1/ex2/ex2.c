@@ -37,9 +37,7 @@ int main(void)
     while (1) 
     { 
         if (cnt % 25 == 0)      // 250ms (4 samples/second)
-        {
             AD1CON1bits.ASAM = 1;       // Start conversion
-        }
 
         send2displays(voltage);
 
@@ -57,9 +55,7 @@ void _int_(27) isr_adc(void)
     int i, average = 0;
 
     for (i = 0; i < 8; i++)
-    {
         average += p[i * 4];
-    }
 
     voltage = toBcd(voltageConversion(average / 8));
     
