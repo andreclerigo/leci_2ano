@@ -13,15 +13,12 @@ int main(void)
 
     EnableInterrupts();
 
-    while (1)
-    {
-        while (1);
-    }
+    while (1);
         
     return 0;
 }
 
-void _int_() isr_T3(void)
+void _int_(12) isr_T3(void)
 {
     putChar('.');
     IFS0bits.T3IF = 0;
