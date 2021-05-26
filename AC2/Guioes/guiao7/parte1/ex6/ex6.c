@@ -18,11 +18,11 @@ int main(void)
 
     EnableInterrupts();
 
-    char ds;
+    int ds;
     while (1)
     {
-        ds = PORTE & 0x0003;
-        if (ds == 0x0001)
+        ds = PORTB & 0x03;
+        if (ds == 1)
             IEC0bits.T1IE = 0;          // Disable timer T1 interrupts
         else
             IEC0bits.T1IE = 1;          // Enable timer T1 interrupts
