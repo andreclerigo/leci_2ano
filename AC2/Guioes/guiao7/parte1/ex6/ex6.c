@@ -18,11 +18,11 @@ int main(void)
 
     EnableInterrupts();
 
-    volatile char ds;
+    char ds;
     while (1)
     {
-        ds = PORTE & 0x02;
-        if (ds == '1')
+        ds = PORTE & 0x0003;
+        if (ds == 0x0001)
             IEC0bits.T1IE = 0;          // Disable timer T1 interrupts
         else
             IEC0bits.T1IE = 1;          // Enable timer T1 interrupts
@@ -67,7 +67,7 @@ void configureAll()
     IEC0bits.T3IE = 1;          // Enable timer T3 interrupts
 
     // Deepswitch control
-    TRISB = TRISB | 0x0002;     // RE1 and RE0 as input
+    TRISB = TRISB | 0x0003;     // RB1 and RB0 as input
 }
 
 void _int_(4) isr_T1(void)
