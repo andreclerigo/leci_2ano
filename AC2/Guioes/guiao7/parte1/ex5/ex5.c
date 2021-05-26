@@ -45,7 +45,7 @@ void configureAll()
     AD1CON1bits.SSRC = 7;       // Conversion trigger constant
     AD1CON1bits.CLRASAM = 1;    // Stop conversion when the 1st A/D converter intetupr is generated. At the same time, hardware clears ASAM bit
     AD1CON3bits.SAMC = 16;      // Sample time is 16 TAD (TAD = 100ns)
-    AD1CON2bits.SMPI = 9;       // Interrupt is generated after 8 samples
+    AD1CON2bits.SMPI = 7;       // Interrupt is generated after 8 samples
     AD1CHSbits.CH0SA = 4;       // analog channel input 4
     AD1CON1bits.ON = 1;         // Enable the A/d configuration sequence
 
@@ -116,7 +116,7 @@ void send2displays(char value)
         LATD = (LATD | 0x0040) & 0xFFDF;    // Dipslay High active and Display Low OFF
         LATB = (LATB & 0x80FF) | ((unsigned int)(dh)) << 8; // Clean the display and set the right value
     } else {
-LATD = (LATD | 0x0020) & 0xFFBF;    // Display High OFF and Display High active
+        LATD = (LATD | 0x0020) & 0xFFBF;    // Display High OFF and Display High active
         LATB = (LATB & 0x80FF) | ((unsigned int)(dl)) << 8; // Clean the display and set the right value
     }
 
