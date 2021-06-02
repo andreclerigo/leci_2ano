@@ -4,7 +4,7 @@ void configUart(unsigned int baud, char parity, unsigned int stopbits)
 {
     // Configure UART2
     if (baud >= 600 || baud <= 115200)
-        U2BRG = (((20*10^6) + 8 * baud) / (16 * baud)) - 1;    // Aproximate to closest baudrate
+        U2BRG = ((PBCLK + 8 * baud) / (16 * baud)) - 1;    // Aproximate to closest baudrate
     else
         U2BRG = 10;                     // DEFAULT 115200 baudrate
     

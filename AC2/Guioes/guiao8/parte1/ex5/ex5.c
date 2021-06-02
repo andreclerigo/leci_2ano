@@ -7,7 +7,7 @@ void configUart(unsigned int baud, char party, unsigned int stopbits);
 
 int main(void)
 {
-    configUart(115200, 'N', 1);
+    configUart(1200, 'O', 2);
     
     while (1)
     {
