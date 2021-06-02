@@ -26,7 +26,6 @@ int main(void)
 
 void puts(char *str)
 {
-    while (U2STAbits.UTXBF == 1);
     while (*str != '\0')
     {
         putc(*str);
