@@ -6,17 +6,15 @@ void configUart(unsigned int baud, char party, unsigned int stopbits);
 
 int main(void)
 {
-    configUart(115200, 'N', 1);
-    //configUart(57600, 'N', 1);
-    //configUart(19200, 'N', 1);    
+    configUart(115200, 'N', 1);   
     int time;
 
     while (1)
     {
         resetCoreTimer();
-        puts("123456789\n");
-        //puts("123456789A\n");
-        //puts("123456789AB\n");        
+        puts("123456789\n");          // 1578300 ns
+        //puts("123456789A\n");         // 1666550 ns
+        //puts("123456789AB\n");        // 1754650 ns
         while (U2STAbits.TRMT != 1);    // Wait while FIFO and Tx shift register are not empty
         time = 50 * readCoreTimer();
         printInt10(time);
@@ -59,7 +57,7 @@ void configUart(unsigned int baud, char parity, unsigned int stopbits)
         U2MODEbits.PDSEL = 0b00;        // DEFAULT NO PARITY 8 BITS
 
     if (stopbits == 1 || stopbits == 2)  
-        U2MODEbits.STSEL = stopbits - 1;// number of stopbits
+        U2MODEbits.STSEL = stopbits - 1;// Number of stopbits
     else
         U2MODEbits.STSEL = 0;           // DEFAULT 1 STOPBIT
 
