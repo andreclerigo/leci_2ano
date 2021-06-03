@@ -169,7 +169,5 @@ int voltageConversion(int value)
 void setPWM(unsigned int dutyCycle)
 {
     if (dutyCycle >= 0 && dutyCycle <= 100)
-        OC1RS = (int) ((dutyCycle / 100.0) * 0.01 * 5000000);
+        OC1RS = (dutyCycle * (PR3 + 1)) /100;
 }
-
-//** OC1RS = (dutyCycle * (PR3 + 1)) /100;
