@@ -18,7 +18,7 @@ void configUart(unsigned int baud, char parity, unsigned int stopbits)
         U2MODEbits.PDSEL = 0b00;        // DEFAULT NO PARITY 8 BITS
 
     if (stopbits == 1 || stopbits == 2)  
-        U2MODEbits.STSEL = stopbits - 1;// number of stopbits
+        U2MODEbits.STSEL = stopbits - 1;// Number of stopbits
     else
         U2MODEbits.STSEL = 0;           // DEFAULT 1 STOPBIT
 

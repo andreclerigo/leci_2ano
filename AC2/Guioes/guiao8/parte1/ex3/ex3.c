@@ -18,7 +18,7 @@ int main(void)
     while (1)
     {
         puts("String de teste\n");
-        delay(1000);            // wait 1s
+        delay(1000);            // Wait 1s
     }
     
     return 0;
@@ -35,7 +35,7 @@ void puts(char *str)
 
 void putc(char byte2send)
 {
-    while (U2STAbits.UTXBF == 1);
+    while (U2STAbits.UTXBF == 1);   // Wait until the Transmister Buffer is Full
     U2TXREG = byte2send;
 }
 

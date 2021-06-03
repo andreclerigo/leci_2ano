@@ -12,7 +12,7 @@ int main(void)
     while (1)
     {
         puts("String de teste\n");
-        delay(1000);            // wait 1s
+        delay(1000);            // Wait 1s
     }
     
     return 0;
@@ -29,7 +29,7 @@ void puts(char *str)
 
 void putc(char byte2send)
 {
-    while (U2STAbits.UTXBF == 1);
+    while (U2STAbits.UTXBF == 1);   // Wait until the Transmister Buffer is Full
     U2TXREG = byte2send;
 }
 
@@ -60,7 +60,7 @@ void configUart(unsigned int baud, char parity, unsigned int stopbits)
         U2MODEbits.PDSEL = 0b00;        // DEFAULT NO PARITY 8 BITS
 
     if (stopbits == 1 || stopbits == 2)  
-        U2MODEbits.STSEL = stopbits - 1;// number of stopbits
+        U2MODEbits.STSEL = stopbits - 1;// Number of stopbits
     else
         U2MODEbits.STSEL = 0;           // DEFAULT 1 STOPBIT
 
