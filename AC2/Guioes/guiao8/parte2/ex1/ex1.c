@@ -12,7 +12,6 @@ int main(void)
     return 0;
 }
 
-
 void putc(char byte2send)
 {
     while (U2STAbits.UTXBF == 1);
