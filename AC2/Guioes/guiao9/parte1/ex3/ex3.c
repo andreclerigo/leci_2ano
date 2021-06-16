@@ -4,21 +4,21 @@
 #include "../../buffer.h"
 #include "detpic32.h"
 
-extern volatile circularBuffer rx;
-extern volatile circularBuffer tx;
+extern volatile circularBuffer rxb;
+extern volatile circularBuffer txb;
 
 void comDrv_flushRx(void)
 {
-    rx.head = 0;
-    rx.tail = 0;
-    rx.count = 0;
+    rxb.head = 0;
+    rxb.tail = 0;
+    rxb.count = 0;
     DisableUart1RxInterrupt();
 }
 
 void comDrv_flushTx(void)
 {
-    tx.head = 0;
-    tx.tail = 0;
-    tx.count = 0;
+    txb.head = 0;
+    txb.tail = 0;
+    txb.count = 0;
     DisableUart1TxInterrupt();
 }
