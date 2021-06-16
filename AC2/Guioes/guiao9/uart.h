@@ -17,3 +17,4 @@
 void comDrv_flushRX(void);
 void comDrv_flushTx(void);
 void comDrv_putc(char ch);
+void comDrv_puts(char *s);
