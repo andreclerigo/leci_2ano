@@ -13,7 +13,7 @@ void comDrv_putc(char ch)
     txb.data[txb.tail] = ch;                // Copy character to TX buffer at 
                                             // last position avaible (tail)
     txb.tail = (txb.tail + 1) & INDEX_MASK; // Increment tail index
-    DisableUart2RxInterrupt();              // Begin of critical section
+    DisableUart2TxInterrupt();              // Begin of critical section
     txb.count++;                            // Increment count variable
     EnableUart2TxInterrupt();               // End of critical section
 }
