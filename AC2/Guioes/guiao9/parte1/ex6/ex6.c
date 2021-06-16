@@ -16,8 +16,7 @@ void _int_(32) isr_uart2tx()
             txb.head = (txb.head + 1) & INDEX_MASK;
             txb.count--;
         }
+        if (txb.count == 0) DisableUart2RxInterrupt();
+        IFS1bits.U2TXIF = 0;
     }
-
-    if (txb.count == 0) DisableUart2RxInterrupt();
-    IFS1bits.U2TXIF = 0;
 }
