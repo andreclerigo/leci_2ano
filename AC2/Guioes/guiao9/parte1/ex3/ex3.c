@@ -12,7 +12,7 @@ void comDrv_flushRx(void)
     rxb.head = 0;
     rxb.tail = 0;
     rxb.count = 0;
-    DisableUart1RxInterrupt();
+    DisableUart2RxInterrupt();
 }
 
 void comDrv_flushTx(void)
@@ -20,5 +20,5 @@ void comDrv_flushTx(void)
     txb.head = 0;
     txb.tail = 0;
     txb.count = 0;
-    DisableUart1TxInterrupt();
+    DisableUart2TxInterrupt();
 }
