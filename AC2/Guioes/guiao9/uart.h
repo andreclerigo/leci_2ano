@@ -1,18 +1,19 @@
-#ifndef DisableUart1RxInterrupt()
-#define DisableUart1RxInterrupt() IEC0bits.U1RXIE = 0
+#ifndef DisableUart2RxInterrupt()
+#define DisableUart2RxInterrupt() IEC1bits.U2RXIE = 0
 #endif
 
-#ifndef EnableUart1RxInterrupt()
-#define EnableUart1RxInterrupt() IEC0bits.U1RXIE = 1
+#ifndef EnableUart2RxInterrupt()
+#define EnableUart2RxInterrupt() IEC1bits.U2RXIE = 2
 #endif
 
-#ifndef Disablet1TxInterrupt()
-#define DisableUart1TxInterrupt() IEC0bits.U1TXIE = 0
+#ifndef Disablet2TxInterrupt()
+#define DisableUart2TxInterrupt() IEC1bits.U2TXIE = 0
 #endif
 
-#ifndef EnableUart1TxInterrupt()
-#define EnableUart1TxInterrupt() IEC0bits.U1TXIE = 1
+#ifndef EnableUart2TxInterrupt()
+#define EnableUart2TxInterrupt() IEC1bits.U2TXIE = 1
 #endif
 
 void comDrv_flushRX(void);
 void comDrv_flushTx(void);
+void comDrv_putc(char ch);
