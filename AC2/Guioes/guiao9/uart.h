@@ -2,6 +2,8 @@
 #define EnableUart2RxInterrupt() IEC1bits.U2RXIE = 1
 #define DisableUart2TxInterrupt() IEC1bits.U2TXIE = 0
 #define EnableUart2TxInterrupt() IEC1bits.U2TXIE = 1
+#define TRUE 1
+#define FALSE 0
 
 void comDrv_flushRx(void);
 void comDrv_flushTx(void);
