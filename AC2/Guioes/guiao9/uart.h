@@ -10,3 +10,4 @@ void comDrv_flushTx(void);
 void comDrv_putc(char ch);
 void comDrv_puts(char *s);
 void comDrv_config(unsigned int baud, char party, unsigned int stopbits);
+char comDrv_getc(char *pchar);
