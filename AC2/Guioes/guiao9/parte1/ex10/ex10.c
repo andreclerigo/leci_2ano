@@ -9,11 +9,11 @@ extern volatile circularBuffer rxb;
 
 int main(void)
 {
+    comDrv_flushRx();
+    comDrv_flushTx();
     comDrv_config(115200, 'N', 1);  // default pterm parameters
                                     // with RX interrupts enabled and TX
                                     // interrupts disabled 
-    comDrv_flushRx();
-    comDrv_flushTx();
     EnableInterrupts();
 
     comDrv_puts("PIC32 UART Device-driver\n");
@@ -32,8 +32,8 @@ char comDrv_getc(char *pchar)
 {
     if (rxb.count == 0) return FALSE; 
     
-    DisableUart2RxInterrupt();      // Begin of critical section
-    pchar = rxb.data[rxb.head];
+    DisableUart2RxInterrupt();                          // Begin of critical section
+    *pchar = rxb.data[rxb.head];
     rxb.count--;
     rxb.head = (rxb.head + 1) & INDEX_MASK;             // Increment head variable (mod BUF_SIZE)
     EnableUart2RxInterrupt();                           // End of critical section
@@ -67,10 +67,10 @@ void comDrv_config(unsigned int baud, char parity, unsigned int stopbits)
     U2STAbits.UTXEN = 1;                // Enable Transmitter
     U2MODEbits.ON = 1;                  // Enable UART2
     IPC8bits.U2IP = 2;                  // Configure Interrupt Priority
-    EnableUart2RxInterrupt();
-    DisableUart2TxInterrupt();
     IFS1bits.U2RXIF = 0;
     IFS1bits.U2TXIF = 0;
+    EnableUart2RxInterrupt();
+    DisableUart2TxInterrupt();
 }
 
 void comDrv_putc(char ch)
