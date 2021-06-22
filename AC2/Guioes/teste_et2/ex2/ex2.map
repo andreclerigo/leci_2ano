@@ -381,12 +381,12 @@ LOAD /opt/pic32mx/lib/startup.o
                 0x000000009d001400                _text_begin = .
  *(.text .stub .text.* .gnu.linkonce.t.*)
  .text          0x000000009d001400      0x66c ex2.o
-                0x000000009d001834                voltageConversion
-                0x000000009d0015e8                send2displays
-                0x000000009d0018a8                isr_t2
-                0x000000009d0016e4                isr_t3
+                0x000000009d0015a4                voltageConversion
+                0x000000009d001820                send2displays
+                0x000000009d00191c                isr_t2
+                0x000000009d001618                isr_t3
                 0x000000009d001400                main
-                0x000000009d0015a4                toBCD
+                0x000000009d0017dc                toBCD
  .text          0x000000009d001a6c     0x1128 /opt/pic32mx/lib/libm.a(dp32.o)
                 0x000000009d002b1c                fabs
                 0x000000009d0029e0                __eqdf2
@@ -440,8 +440,8 @@ LOAD /opt/pic32mx/lib/startup.o
 
 .rodata         0x000000009d002c48       0x68
  *(.rodata .rodata.* .gnu.linkonce.r.*)
- .rodata        0x000000009d002c48       0x40 ex2.o
- .rodata.cst8   0x000000009d002c88       0x10 ex2.o
+ .rodata.cst8   0x000000009d002c48       0x10 ex2.o
+ .rodata        0x000000009d002c58       0x40 ex2.o
  .rodata        0x000000009d002c98       0x15 /opt/pic32mx/lib/startup.o
  *(.rodata1)
                 0x000000009d002cb0                . = ALIGN (0x4)

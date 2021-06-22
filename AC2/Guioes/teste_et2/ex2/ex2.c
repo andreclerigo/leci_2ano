@@ -8,31 +8,31 @@ volatile static int voltage;
 
 int main(void)
 {
-	//Timer2 -> ADC
+	//Timer3 -> ADC
 	//Kprescaler = ceil(20Mhz/65536*10) = 32
-	//PR2 = (20Mhz/32/10)-1 = 62499
+	//PR3 = (20Mhz/32/10)-1 = 62499
 
-	//Timer3 -> Display
+	//Timer2 -> Display
 	//Kprescaler = ceil(20Mhz/65536*120) = 4
-	//PR3 = (20Mhz/4/120)-1 = 41665,...
+	//PR2 = (20Mhz/4/120)-1 = 41665,...
 	
 	//Ponto1(0, 20) Ponto2(33; 65)
 	//y = 1,36x + 20
 	
 	// Timer2
-	T2CONbits.TCKPS = 5;
-	PR2 = 62499;
+	T2CONbits.TCKPS = 2;
+	PR2 = 41666;
 	TMR2 = 0;
 	T2CONbits.TON = 1;
-	IPC2bits.T2IP = 1;
+	IPC2bits.T2IP = 2;
 	IEC0bits.T2IE = 1;
 	
 	// Timer3
-	T3CONbits.TCKPS = 2;
-	PR3 = 41666;
+	T3CONbits.TCKPS = 5;
+	PR3 = 62499;
 	TMR3 = 0;
 	T3CONbits.TON = 1;
-	IPC3bits.T3IP = 2;
+	IPC3bits.T3IP = 1;
 	IEC0bits.T3IE = 1;
 	
 	// Displays
@@ -63,12 +63,6 @@ int main(void)
 
 void _int_(12) isr_t3(void)
 {
-	send2displays(toBCD(voltage));
-	IFS0bits.T3IF = 0;
-}
-
-void _int_(8) isr_t2(void)
-{
 	AD1CON1bits.ASAM = 1;
 	while (IFS1bits.AD1IF == 0);
 	int soma = 0;
@@ -79,6 +73,12 @@ void _int_(8) isr_t2(void)
 		
 	voltage = soma / 2;
 	IFS1bits.AD1IF = 0;
+	IFS0bits.T3IF = 0;
+}
+
+void _int_(8) isr_t2(void)
+{
+	send2displays(toBCD(voltage));
 	IFS0bits.T2IF = 0;
 }
 
