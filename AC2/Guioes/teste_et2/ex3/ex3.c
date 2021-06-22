@@ -3,10 +3,8 @@
 void configureUart(void);
 void putc(char c);
 void puts(char *str);
-void getc(void);
 
 static char DS4, DS3, DS2, DS1;
-volatile static char val;
 
 int main(void)
 {	
@@ -22,24 +20,10 @@ int main(void)
 	
 	while(1)
 	{
-		val = '0';
 		DS4 = (PORTB & 0x0008) >> 3;
 		DS3 = (PORTB & 0x0004) >> 2;
 		DS2 = (PORTB & 0x0002) >> 1;
-		DS1 = PORTB & 0x0001;
-		
-		if (val == 'T')
-			LATEbits.LATE4 = !LATEbits.LATE4;
-			
-		if (val == 'P')
-		{
-			puts("DipSwitch=");
-			putc(DS4 + '0');
-			putc(DS3 + '0');
-			putc(DS2 + '0');
-			putc(DS1 + '0');
-			putc('\n');
-		}
+		DS1 = PORTB & 0x0001;	
 	}
 	return 0;
 }
@@ -59,12 +43,6 @@ void puts(char *str)
 	}
 }
 
-void getc(void)
-{
-	while(U2STAbits.URXDA == 0);
-	val = U2RXREG;
-}
-
 void configureUart()
 {
 	U2BRG = ((PBCLK + 8 * 9600) / (16 * 9600)) - 1;
@@ -79,7 +57,23 @@ void configureUart()
 void _int_(32) isr_uart()
 {
 	if (IFS1bits.U2RXIF == 1)
-		getc();
+	{
+		while(U2STAbits.URXDA == 0);
+		char val = U2RXREG;
+		
+		if (val == 'T')
+			LATEbits.LATE4 = !LATEbits.LATE4;
+			
+		if (val == 'P')
+		{
+			puts("DipSwitch=");
+			putc(DS4 + '0');
+			putc(DS3 + '0');
+			putc(DS2 + '0');
+			putc(DS1 + '0');
+			putc('\n');
+		}
+	}
 		
 	IFS1bits.U2RXIF = 0;
 }
