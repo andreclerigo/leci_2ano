@@ -8,14 +8,32 @@ volatile static int voltage;
 
 int main(void)
 {
+	//Timer2 -> ADC
 	//Kprescaler = ceil(20Mhz/65536*10) = 32
 	//PR2 = (20Mhz/32/10)-1 = 62499
+
+	//Timer3 -> Display
+	//Kprescaler = ceil(20Mhz/65536*120) = 4
+	//PR3 = (20Mhz/4/120)-1 = 41665,...
+	
+	//Ponto1(0, 20) Ponto2(33; 65)
+	//y = 1,36x + 20
+	
+	// Timer2
 	T2CONbits.TCKPS = 5;
 	PR2 = 62499;
 	TMR2 = 0;
 	T2CONbits.TON = 1;
 	IPC2bits.T2IP = 1;
 	IEC0bits.T2IE = 1;
+	
+	// Timer3
+	T3CONbits.TCKPS = 2;
+	PR3 = 41666;
+	TMR3 = 0;
+	T3CONbits.TON = 1;
+	IPC3bits.T3IP = 2;
+	IEC0bits.T3IE = 1;
 	
 	// Displays
 	TRISDbits.TRISD6 = 0;
@@ -29,55 +47,44 @@ int main(void)
     AD1CON1bits.SSRC = 7;       // Conversion trigger constant
     AD1CON1bits.CLRASAM = 1;    
     AD1CON3bits.SAMC = 16;      // Sample time is 16 TAD (TAD = 100ns)
-    AD1CON2bits.SMPI = 7;       // Interrupt is generated after 8 samples
+    AD1CON2bits.SMPI = 1;       // Interrupt is generated after 2 samples
     AD1CHSbits.CH0SA = 4;       // analog channel input 4
     AD1CON1bits.ON = 1;         // Enable the A/d configuration sequence
 	
 	IFS0bits.T2IF = 0;
+	IFS0bits.T3IF = 0;
 	
 	EnableInterrupts();
-	int i;
 	
-	while(1)
-	{
-		AD1CON1bits.ASAM = 1;
-		while (IFS1bits.AD1IF == 0);
-		int soma = 0;
-		int* val = (int*) (&ADC1BUF0);
-		for (i = 0; i < 4; i++) 
-			soma += voltageConversion(val[i*4]);
-			
-		voltage = soma / 4;
-		IFS1bits.AD1IF = 0;
-	}
+	while(1);
+	
 	return 0;
+}
+
+void _int_(12) isr_t3(void)
+{
+	send2displays(toBCD(voltage));
+	IFS0bits.T3IF = 0;
 }
 
 void _int_(8) isr_t2(void)
 {
-	send2displays(toBCD(voltage));
+	AD1CON1bits.ASAM = 1;
+	while (IFS1bits.AD1IF == 0);
+	int soma = 0;
+	int* val = (int*) (&ADC1BUF0);
+	int i;
+	for (i = 0; i < 2; i++) 
+		soma += voltageConversion(val[i*4]);
+		
+	voltage = soma / 2;
+	IFS1bits.AD1IF = 0;
 	IFS0bits.T2IF = 0;
 }
 
 void send2displays(char value)
 {
-	int display7codes[] ={	0x3F, //0
-                            0x06, //1
-                            0x5B, //2
-                            0x4F, //3
-                            0x66, //4
-                            0x6D, //5
-                            0x7D, //6
-                            0x07, //7
-                            0x7F, //8
-                            0x6F, //9
-                            0x77, //A
-                            0x7C, //b
-                            0x39, //C
-                            0x5E, //d
-                            0x79, //E
-                            0x71  //F
-                       	};
+	int display7codes[] = { 0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71 };
 	static int displayFlag = 0;
 	unsigned char dh = value >> 4;
 	unsigned char dl = value & 0x0F;
@@ -106,5 +113,7 @@ char toBCD(char value)
 
 int voltageConversion(int voltage)
 {
-	return ((voltage * 33 + 511) / 1024);
+	int temp = ((voltage * 33 + 511) / 1024);
+	int aux = 1.36*temp + 0.5;
+	return aux + 20;
 }

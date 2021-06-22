@@ -14,8 +14,8 @@ int main(void)
 	while(1)
 	{
 		resetCoreTimer();
-		//250us = 250*10^3 ns
-		// = 250000÷50 = 5000 ciclos
+		// 250us = 250*10^3 ns
+		// ciclos = 250000÷50 = 5000 ciclos
 		while (readCoreTimer() < 5000);
 		
 		portVal = PORTB & 0x0009;
