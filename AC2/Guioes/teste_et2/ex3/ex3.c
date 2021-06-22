@@ -3,7 +3,9 @@
 void configureUart(void);
 void putc(char c);
 void puts(char *str);
+void getc(void);
 
+static char DS4, DS3, DS2, DS1;
 volatile static char val;
 
 int main(void)
@@ -12,10 +14,6 @@ int main(void)
 	IPC8bits.U2IP = 1;
 	IFS1bits.U2RXIF = 0;
 	IEC1bits.U2RXIE = 1;
-	IFS1bits.U2TXIF = 0;
-	IEC1bits.U2TXIE = 1;
-	
-	int DS4, DS3, DS2, DS1;
 	TRISB = TRISB | 0x000F;		//RB[0..3] as inputs
 	TRISEbits.TRISE4 = 0;		//RE4 as output;
 	LATEbits.LATE4 = 1;
@@ -24,9 +22,10 @@ int main(void)
 	
 	while(1)
 	{
-		DS4 = PORTB & 0x0008;
-		DS3 = PORTB & 0x0004;
-		DS2 = PORTB & 0x0002;
+		val = '0';
+		DS4 = (PORTB & 0x0008) >> 3;
+		DS3 = (PORTB & 0x0004) >> 2;
+		DS2 = (PORTB & 0x0002) >> 1;
 		DS1 = PORTB & 0x0001;
 		
 		if (val == 'T')
@@ -35,10 +34,10 @@ int main(void)
 		if (val == 'P')
 		{
 			puts("DipSwitch=");
-			putc(DS4);
-			putc(DS3);
-			putc(DS2);
-			putc(DS1);
+			putc(DS4 + '0');
+			putc(DS3 + '0');
+			putc(DS2 + '0');
+			putc(DS1 + '0');
 			putc('\n');
 		}
 	}
