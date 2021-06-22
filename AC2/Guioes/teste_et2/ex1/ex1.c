@@ -5,25 +5,26 @@ void configureTimer(void);
 
 int main(void)
 {
-	int portVal;
+	char portVal;
 	// Configure Timer 3
 	configureTimer();
 	// Configure Deepswitches
-	TRISB = TRISB | 0x000F;		//RB[0..4] as input
+	TRISB = TRISB | 0x0009;		//RB0 and 3 as input
 	
 	while(1)
 	{
-		portVal = PORTB & 0x000F;
+		resetCoreTimer();
+		//250us = 250*10^3 ns
+		// = 250000÷50 = 5000 ciclos
+		while (readCoreTimer() < 5000);
+		
+		portVal = PORTB & 0x0009;
 		switch(portVal)
 		{
-			case 1: setPWM(25);
+			case 0x1: setPWM(25);
 					break;
-			case 2: setPWM(50);
+			case 0x8: setPWM(75);
 					break;
-			case 3: setPWM(75);
-					break;
-			case 4: setPWM(100);
-					break;	
 		}
 	}
 	
@@ -32,15 +33,15 @@ int main(void)
 
 void configureTimer()
 {
-	//Kprescaler = ceil(20Mhz/(65536*100)) = 4
-	T3CONbits.TCKPS = 2;
-	//PR3 = (5Mhz/100)-1  = 49999
-	PR3 = 49999;
+	//Kprescaler = ceil(20Mhz/(65536*280)) = 2
+	T3CONbits.TCKPS = 1;
+	//PR3 = (10Mhz/280)-1  = 35713,...
+	PR3 = 35714;
 	TMR3 = 0;
 	T3CONbits.TON = 1;
-	OC1CONbits.OCM = 6;
-	OC1CONbits.OCTSEL = 1;
-	OC1CONbits.ON = 1;
+	OC2CONbits.OCM = 6;
+	OC2CONbits.OCTSEL = 1;
+	OC2CONbits.ON = 1;
 }
 
 void setPWM(int dutycycle)

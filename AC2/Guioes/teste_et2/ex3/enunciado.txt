@@ -1,0 +1,9 @@
+Escreva um programa que faça todas as configurações necessárias e que implemente a comunicação série entre a placa DETPIC32-IO (UART2) e o PC, funcionando de acordo com as seguintes especificações:
+
+Parâmetros de comunicação: 9600 bps, odd parity, 8 data bits, 2 stop bits.
+Quando for recebido o caracter ‘P’, deve ser enviada a string "DipSwitch=", seguida do valor binário presente nos dip-switches DS4 a DS1 (ex: DipSwitch=1010).
+Quando for recebido o caracter 'T' o LED ligado ao porto RE4 deve mudar de estado (o estado inicial do LED deve ser ligado).
+O processamento da receção de um caracter deve ser feito, obrigatoriamente, por interrupção.
+Nota importante: nesta questão não podem ser usados system calls.
+
+PBCLK: 20 MHz
