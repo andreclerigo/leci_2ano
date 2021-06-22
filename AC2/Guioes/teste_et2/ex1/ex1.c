@@ -47,5 +47,5 @@ void configureTimer()
 void setPWM(int dutycycle)
 {
 	if (dutycycle >= 0 && dutycycle <= 100)
-		OC1RS = (dutycycle * (PR3 + 1))/100;
+		OC2RS = (dutycycle * (PR3 + 1))/100;
 }
