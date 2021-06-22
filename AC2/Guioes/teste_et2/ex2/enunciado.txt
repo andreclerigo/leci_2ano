@@ -1,0 +1,3 @@
+ADC
+Timer 2 atualizar o display a 10Hz
+Polling da ADC conversao passar para temperatura

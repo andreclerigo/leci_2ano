@@ -1,0 +1,2 @@
+Configurar os deepswitches para controlarem o PWM de um timer
+Teme o timer a funcionar a 100Hz
