@@ -1,2 +1,17 @@
-Configurar os deepswitches para controlarem o PWM de um timer
-Teme o timer a funcionar a 100Hz
+Escreva um programa que faça todas as configurações necessárias e que gere na saída OC2 do μC PIC32 um sinal com uma frequência de 280 Hz e duty-cycle dependente do estado dos dip-switches DS4 e DS1 (ligados aos portos RB3 e RB0, respetivamente), de acordo com a seguinte tabela:
+
+DS4   DS1    Duty-cycle
+
+OFF   ON         25%
+
+ON    OFF        70%
+
+Restantes combinações
+
+Sem alteração
+
+O programa deve verificar a cada 250 μs o valor presente nos dip-switches e alterar o duty-cycle do sinal de saída, em conformidade (para esta temporização deve ser usado o Core Timer).
+
+O sinal PWM deve ser gerado com a máxima resolução possível.
+
+PBCLK: 20 MHz

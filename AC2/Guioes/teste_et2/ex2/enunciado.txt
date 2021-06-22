@@ -1,3 +1,14 @@
-ADC
-Timer 2 atualizar o display a 10Hz
-Polling da ADC conversao passar para temperatura
+Considere que a gama de tensão na entrada da ADC (0 a 3.3V) da placa DETPIC32-IO representa uma temperatura na gama 20 ºC a 65 ºC. Escreva um programa que realize todas as configurações necessárias e que apresente continuamente o valor da temperatura nos dois displays de sete segmentos, em decimal.
+
+Especificações:
+
+A ADC deve realizar duas (2) conversões por cada amostra.
+A frequência de amostragem da ADC deve ser 10Hz.
+A frequência de refresh dos displays deve ser de 120Hz.
+O refresh dos displays deve ser feito por interrupção do timer 2.
+A temporização para a obtenção da frequência de amostragem da ADC deve ser feita através do Core Timer. O fim de conversão da ADC deve ser processado por polling.
+Códigos de 7 segmentos (0 .. F):
+
+0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71
+
+PBCLK: 20 MHz

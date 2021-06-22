@@ -9,7 +9,7 @@ int main(void)
 	// Configure Timer 3
 	configureTimer();
 	// Configure Deepswitches
-	TRISB = TRISB | 0x000F;		//RB[0..4] as output
+	TRISB = TRISB | 0x000F;		//RB[0..4] as input
 	
 	while(1)
 	{

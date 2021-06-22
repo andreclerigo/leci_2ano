@@ -9,7 +9,7 @@ volatile static int voltage;
 int main(void)
 {
 	//Kprescaler = ceil(20Mhz/65536*10) = 32
-	//PR2 = (20Mhz/32/10) = 6250
+	//PR2 = (20Mhz/32/10)-1 = 62499
 	T2CONbits.TCKPS = 5;
 	PR2 = 62499;
 	TMR2 = 0;
