@@ -1,0 +1,8 @@
+-- comentario!!!
+print distance ( 0 ,0)(3,4);
+x := 3;
+y:=4;
+print distance(x,y)(0,y);
+print distance(0,5)(0,distance ( 0 ,0)(3,4));
+v:=distance ( 0 ,0)(3,4);
+print v;

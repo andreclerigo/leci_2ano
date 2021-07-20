@@ -1,0 +1,4 @@
+#!/bin/bash
+
+antlr4-test $*
+

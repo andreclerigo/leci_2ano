@@ -1,0 +1,4 @@
+#!/bin/bash
+
+antlr4-build
+antlr4-test Modes all -tokens < p1.txt

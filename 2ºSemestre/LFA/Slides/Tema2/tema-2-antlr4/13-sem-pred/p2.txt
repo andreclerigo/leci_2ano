@@ -1,0 +1,7 @@
+number a
+string b
+boolean c
+
+print a
+print b
+print c

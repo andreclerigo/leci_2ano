@@ -1,0 +1,3 @@
+#!/bin/bash
+
+antlr4-jar-run StrLangMain.jar $*
