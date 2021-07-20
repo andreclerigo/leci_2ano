@@ -1,0 +1,43 @@
+Paris, Beauvais	2
+Frankfurt	3
+Toulouse, Blagnac	1
+Toronto, Pearson	1
+Ponta Delgada	1
+Milan/Bergamo	1
+Marseille	1
+Lille	1
+Hamburg	1
+Geneva	6
+Lyon, St. Exupery	1
+Zurich	2
+Lisboa	11
+London, Gatwick	3
+Basel	2
+Amsterdam	1
+Luxembourg	2
+London, Stansted	2
+Milan, Malpensa	2
+Luanda	1
+Memmingen	1
+Brussels	3
+Paris, Orly	6
+Barcelona	3
+Frankfurt, Hahn	1
+São Paulo, Guarulhos	1
+Istanbul, Ataturk	1
+Eindhoven	1
+Paris, Ch. de Gaulle	2
+Madeira	4
+Madrid	9
+Carcassonne	1
+Palma Mallorca	1
+Manchester	1
+Faro	2
+Brussels, Charleroi	1
+Clermont-Ferrand	2
+Tenerife Sur	1
+Rome, Fiumicino	1
+London, Luton	1
+Valencia	1
+Paris, Vatry	1
+Saint Etienne	1
