@@ -1,1 +1,2 @@
-# Linguagens Formais e Autómatos
+# Linguagens Formais e Autómatos (LFA)
+## Agora conhecido por Compiladores
