@@ -1,7 +1,3 @@
-<<<<<<< Updated upstream
-# 2ºano de MIECT, atualmente LECI
-### Ano: 2020/2021
-=======
 # 2ºano de MIECT (atualmente LECI)
 Ano: 2020/2021
 
@@ -16,4 +12,3 @@ Ano: 2020/2021
 #### Arquitetura de Computadores-II (AC-II) : 18
 #### Algoritmos e Complexidade (AlgC) : 15
 #### Linguagens Formais e Autómatos (LFA) : 16
->>>>>>> Stashed changes
