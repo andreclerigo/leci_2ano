@@ -1,0 +1,36 @@
+INSERTING
+13 elements
+0 1 2 3 4 5 6 7 8 9 10 11 12 
+SEARCHING
+Searching for -6: ret=-1  currentPos= 5 NCMP= 1
+Searching for  0: ret= 0  currentPos= 0 NCMP= 1
+Searching for  6: ret= 0  currentPos= 6 NCMP= 7
+Searching for 12: ret= 0  currentPos=12 NCMP=13
+Searching for 18: ret=-1  currentPos= 5 NCMP=13
+REMOVING
+RemoveCurrent -> 0
+1 2 3 4 5 6 7 8 9 10 11 12 
+RemoveCurrent -> 2
+1 3 4 5 6 7 8 9 10 11 12 
+RemoveCurrent -> 4
+1 3 5 6 7 8 9 10 11 12 
+RemoveCurrent -> 6
+1 3 5 7 8 9 10 11 12 
+RemoveCurrent -> 8
+1 3 5 7 9 10 11 12 
+RemoveCurrent -> 10
+1 3 5 7 9 11 12 
+RemoveCurrent -> 12
+1 3 5 7 9 11 
+RemoveCurrent -> 1
+3 5 7 9 11 
+RemoveCurrent -> 5
+3 7 9 11 
+RemoveCurrent -> 9
+3 7 11 
+RemoveHead -> 3
+7 11 
+RemoveHead -> 7
+11 
+RemoveHead -> 11
+

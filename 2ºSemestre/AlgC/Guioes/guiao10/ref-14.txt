@@ -1,0 +1,151 @@
+==26618== Memcheck, a memory error detector
+==26618== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==26618== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==26618== Command: ./Tests 14
+==26618== 
+
+1) PersonCreate---
+
+2) PersonSetCreate---
+PersonSetSize(ps1) -> 0
+
+3) PersonSetAdd---
+ps1 -> {
+(2, Silva, Maria, 2003-12-30);
+(3, Guedes, Paulo, 2003-12-31);
+(4, Silva, Carlos, 1999-08-31);
+(8, Costa, Olga, 1967-02-29);
+(9, Santos, Tiago, 1996-06-13);
+}(size=5)
+ps2 -> {
+(1, Maia, Eva, 1977-10-20);
+(5, Matos, Filipe, 2001-01-01);
+(7, Maia, Vitor, 1969-02-28);
+(9, Santos, Tiago, 1996-06-13);
+(10, Santos, Sara, 2007-03-01);
+}(size=5)
+ps3 -> {
+(1, Maia, Eva, 1977-10-20);
+(7, Maia, Vitor, 1969-02-28);
+}(size=2)
+
+4) PersonSetRemove---
+id -> 6
+p = PersonSetRemove(ps1, id) -> NULL
+id -> 7
+p = PersonSetRemove(ps1, id) -> NULL
+id -> 7
+p = PersonSetRemove(ps1, id) -> NULL
+id -> 6
+p = PersonSetRemove(ps1, id) -> NULL
+id -> 2
+p = PersonSetRemove(ps1, id) -> (2, Silva, Maria, 2003-12-30)
+ps1 -> {
+(3, Guedes, Paulo, 2003-12-31);
+(4, Silva, Carlos, 1999-08-31);
+(8, Costa, Olga, 1967-02-29);
+(9, Santos, Tiago, 1996-06-13);
+}(size=4)
+ps1 -> {
+(2, Silva, Maria, 2003-12-30);
+(3, Guedes, Paulo, 2003-12-31);
+(4, Silva, Carlos, 1999-08-31);
+(8, Costa, Olga, 1967-02-29);
+(9, Santos, Tiago, 1996-06-13);
+}(size=5)
+id -> 1
+p = PersonSetRemove(ps1, id) -> NULL
+id -> 10
+p = PersonSetRemove(ps1, id) -> NULL
+id -> 10
+p = PersonSetRemove(ps1, id) -> NULL
+id -> 9
+p = PersonSetRemove(ps1, id) -> (9, Santos, Tiago, 1996-06-13)
+ps1 -> {
+(2, Silva, Maria, 2003-12-30);
+(3, Guedes, Paulo, 2003-12-31);
+(4, Silva, Carlos, 1999-08-31);
+(8, Costa, Olga, 1967-02-29);
+}(size=4)
+ps1 -> {
+(2, Silva, Maria, 2003-12-30);
+(3, Guedes, Paulo, 2003-12-31);
+(4, Silva, Carlos, 1999-08-31);
+(8, Costa, Olga, 1967-02-29);
+(9, Santos, Tiago, 1996-06-13);
+}(size=5)
+
+5) PersonSetPop---
+PersonSetPop(ps3) -> (1, Maia, Eva, 1977-10-20)
+PersonSetPop(ps3) -> (7, Maia, Vitor, 1969-02-28)
+ps3 -> {
+}(size=0)
+
+6) PersonSetGet / Contains---
+id -> 1
+PersonSetGet(ps1, id) -> NULL
+PersonSetContains(ps1, id) -> 0
+id -> 3
+PersonSetGet(ps1, id) -> (3, Guedes, Paulo, 2003-12-31)
+PersonSetContains(ps1, id) -> 1
+id -> 1
+PersonSetGet(ps1, id) -> NULL
+PersonSetContains(ps1, id) -> 0
+id -> 5
+PersonSetGet(ps1, id) -> NULL
+PersonSetContains(ps1, id) -> 0
+
+7) PersonSetUnion/Intersection/Difference---
+ps1 -> {
+(2, Silva, Maria, 2003-12-30);
+(3, Guedes, Paulo, 2003-12-31);
+(4, Silva, Carlos, 1999-08-31);
+(8, Costa, Olga, 1967-02-29);
+(9, Santos, Tiago, 1996-06-13);
+}(size=5)
+ps2 -> {
+(1, Maia, Eva, 1977-10-20);
+(5, Matos, Filipe, 2001-01-01);
+(7, Maia, Vitor, 1969-02-28);
+(9, Santos, Tiago, 1996-06-13);
+(10, Santos, Sara, 2007-03-01);
+}(size=5)
+ps4 = PersonSetUnion(ps1, ps2) -> {
+(1, Maia, Eva, 1977-10-20);
+(2, Silva, Maria, 2003-12-30);
+(3, Guedes, Paulo, 2003-12-31);
+(4, Silva, Carlos, 1999-08-31);
+(5, Matos, Filipe, 2001-01-01);
+(7, Maia, Vitor, 1969-02-28);
+(8, Costa, Olga, 1967-02-29);
+(9, Santos, Tiago, 1996-06-13);
+(10, Santos, Sara, 2007-03-01);
+}(size=9)
+ps5 = PersonSetIntersection(ps1, ps2) -> {
+(9, Santos, Tiago, 1996-06-13);
+}(size=1)
+ps6 = PersonSetIntersection(ps2, ps1) -> {
+(9, Santos, Tiago, 1996-06-13);
+}(size=1)
+ps7 = PersonSetDifference(ps1, ps2) -> {
+(2, Silva, Maria, 2003-12-30);
+(3, Guedes, Paulo, 2003-12-31);
+(4, Silva, Carlos, 1999-08-31);
+(8, Costa, Olga, 1967-02-29);
+}(size=4)
+
+8) PersonSetIsSubset/Equals---
+PersonSetIsSubset(ps5, ps1) -> 1
+PersonSetIsSubset(ps5, ps2) -> 1
+PersonSetIsSubset(ps6, ps2) -> 1
+PersonSetEquals(ps1, ps2) -> 0
+PersonSetEquals(ps5, ps6) -> 1
+==26618== 
+==26618== HEAP SUMMARY:
+==26618==     in use at exit: 0 bytes in 0 blocks
+==26618==   total heap usage: 67 allocs, 67 frees, 5,362 bytes allocated
+==26618== 
+==26618== All heap blocks were freed -- no leaks are possible
+==26618== 
+==26618== For lists of detected and suppressed errors, rerun with: -s
+==26618== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

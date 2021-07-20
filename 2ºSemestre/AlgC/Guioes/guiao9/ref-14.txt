@@ -1,0 +1,151 @@
+==5785== Memcheck, a memory error detector
+==5785== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==5785== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==5785== Command: ./Tests 14
+==5785== 
+
+1) PersonCreate---
+
+2) PersonSetCreate---
+PersonSetSize(ps1) -> 0
+
+3) PersonSetAdd---
+ps1 -> {
+(4, Silva, Carlos, 1999-08-31);
+(3, Guedes, Paulo, 2003-12-31);
+(2, Silva, Maria, 2003-12-30);
+(9, Santos, Tiago, 1996-06-13);
+(8, Costa, Olga, 1967-02-29);
+}(size=5, capacity=8)
+ps2 -> {
+(1, Maia, Eva, 1977-10-20);
+(10, Santos, Sara, 2007-03-01);
+(7, Maia, Vitor, 1969-02-28);
+(9, Santos, Tiago, 1996-06-13);
+(5, Matos, Filipe, 2001-01-01);
+}(size=5, capacity=8)
+ps3 -> {
+(1, Maia, Eva, 1977-10-20);
+(7, Maia, Vitor, 1969-02-28);
+}(size=2, capacity=4)
+
+4) PersonSetRemove---
+id -> 6
+p = PersonSetRemove(ps1, id) -> NULL
+id -> 7
+p = PersonSetRemove(ps1, id) -> NULL
+id -> 7
+p = PersonSetRemove(ps1, id) -> NULL
+id -> 6
+p = PersonSetRemove(ps1, id) -> NULL
+id -> 2
+p = PersonSetRemove(ps1, id) -> (2, Silva, Maria, 2003-12-30)
+ps1 -> {
+(4, Silva, Carlos, 1999-08-31);
+(3, Guedes, Paulo, 2003-12-31);
+(8, Costa, Olga, 1967-02-29);
+(9, Santos, Tiago, 1996-06-13);
+}(size=4, capacity=8)
+ps1 -> {
+(4, Silva, Carlos, 1999-08-31);
+(3, Guedes, Paulo, 2003-12-31);
+(8, Costa, Olga, 1967-02-29);
+(9, Santos, Tiago, 1996-06-13);
+(2, Silva, Maria, 2003-12-30);
+}(size=5, capacity=8)
+id -> 1
+p = PersonSetRemove(ps1, id) -> NULL
+id -> 10
+p = PersonSetRemove(ps1, id) -> NULL
+id -> 10
+p = PersonSetRemove(ps1, id) -> NULL
+id -> 9
+p = PersonSetRemove(ps1, id) -> (9, Santos, Tiago, 1996-06-13)
+ps1 -> {
+(4, Silva, Carlos, 1999-08-31);
+(3, Guedes, Paulo, 2003-12-31);
+(8, Costa, Olga, 1967-02-29);
+(2, Silva, Maria, 2003-12-30);
+}(size=4, capacity=8)
+ps1 -> {
+(4, Silva, Carlos, 1999-08-31);
+(3, Guedes, Paulo, 2003-12-31);
+(8, Costa, Olga, 1967-02-29);
+(2, Silva, Maria, 2003-12-30);
+(9, Santos, Tiago, 1996-06-13);
+}(size=5, capacity=8)
+
+5) PersonSetPop---
+PersonSetPop(ps3) -> (7, Maia, Vitor, 1969-02-28)
+PersonSetPop(ps3) -> (1, Maia, Eva, 1977-10-20)
+ps3 -> {
+}(size=0, capacity=4)
+
+6) PersonSetGet / Contains---
+id -> 1
+PersonSetGet(ps1, id) -> NULL
+PersonSetContains(ps1, id) -> 0
+id -> 3
+PersonSetGet(ps1, id) -> (3, Guedes, Paulo, 2003-12-31)
+PersonSetContains(ps1, id) -> 1
+id -> 1
+PersonSetGet(ps1, id) -> NULL
+PersonSetContains(ps1, id) -> 0
+id -> 5
+PersonSetGet(ps1, id) -> NULL
+PersonSetContains(ps1, id) -> 0
+
+7) PersonSetUnion/Intersection/Difference---
+ps1 -> {
+(4, Silva, Carlos, 1999-08-31);
+(3, Guedes, Paulo, 2003-12-31);
+(8, Costa, Olga, 1967-02-29);
+(2, Silva, Maria, 2003-12-30);
+(9, Santos, Tiago, 1996-06-13);
+}(size=5, capacity=8)
+ps2 -> {
+(1, Maia, Eva, 1977-10-20);
+(10, Santos, Sara, 2007-03-01);
+(7, Maia, Vitor, 1969-02-28);
+(9, Santos, Tiago, 1996-06-13);
+(5, Matos, Filipe, 2001-01-01);
+}(size=5, capacity=8)
+ps4 = PersonSetUnion(ps1, ps2) -> {
+(4, Silva, Carlos, 1999-08-31);
+(3, Guedes, Paulo, 2003-12-31);
+(8, Costa, Olga, 1967-02-29);
+(2, Silva, Maria, 2003-12-30);
+(9, Santos, Tiago, 1996-06-13);
+(1, Maia, Eva, 1977-10-20);
+(10, Santos, Sara, 2007-03-01);
+(7, Maia, Vitor, 1969-02-28);
+(5, Matos, Filipe, 2001-01-01);
+}(size=9, capacity=16)
+ps5 = PersonSetIntersection(ps1, ps2) -> {
+(9, Santos, Tiago, 1996-06-13);
+}(size=1, capacity=4)
+ps6 = PersonSetIntersection(ps2, ps1) -> {
+(9, Santos, Tiago, 1996-06-13);
+}(size=1, capacity=4)
+ps7 = PersonSetDifference(ps1, ps2) -> {
+(4, Silva, Carlos, 1999-08-31);
+(3, Guedes, Paulo, 2003-12-31);
+(8, Costa, Olga, 1967-02-29);
+(2, Silva, Maria, 2003-12-30);
+}(size=4, capacity=4)
+
+8) PersonSetIsSubset/Equals---
+PersonSetIsSubset(ps5, ps1) -> 1
+PersonSetIsSubset(ps5, ps2) -> 1
+PersonSetIsSubset(ps6, ps2) -> 1
+PersonSetEquals(ps1, ps2) -> 0
+PersonSetEquals(ps5, ps6) -> 1
+==5785== 
+==5785== HEAP SUMMARY:
+==5785==     in use at exit: 0 bytes in 0 blocks
+==5785==   total heap usage: 39 allocs, 39 frees, 5,114 bytes allocated
+==5785== 
+==5785== All heap blocks were freed -- no leaks are possible
+==5785== 
+==5785== For lists of detected and suppressed errors, rerun with: -s
+==5785== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
